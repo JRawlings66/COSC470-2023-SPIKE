@@ -5,15 +5,39 @@
       "api_key": "cae0e091a31773bcf0ffdd4bf97a9e61",
       "index_composites": [
         "^GSPC",
-        "^IXIC"
+        "^IXIC",
+        "^DJI",
+        "^RUA",
+        "^FTSE"
       ],
       "stocks": [
         "AAPL",
-        "NDAQ"
-      ]
+        "NDAQ",
+        "META",
+        "GOOG",
+        "MSFT",
+        "NVDA",
+        "ZNGA",
+        "WBA",
+        "TSLA",
+        "NKE",
+        "AMZN",
+        "WMT",
+        "XOM",
+        "JPM",
+        "COST",
+        "PEP",
+        "ADBE",
+        "JNJ",
+        "V",
+        "CVX"
+      ],
       "commodities": [
         "HGUSD",
-        "CLUSD"
+        "CLUSD",
+        "GCUSD",
+        "SIUSD",
+        "NGUSD"
       ]
     }
   }
