@@ -3,6 +3,14 @@
 \usepackage[utf8]{inputenc}
 %\usepackage{datatool} %database/graph/tables package
 
+\author{
+	Flath, Dakota\\
+	%\texttt{@irradiated}
+	\and
+	Volberg, Devon\\
+	%\texttt{something@gmail.com}
+}
+
 \begin{document}
 
 %styling
@@ -22,11 +30,29 @@
 
 When inserting all 'null' values into the database, the database should reject it.
 
+\subsection{Example Test Input}
+
+\begin{verbatim}
+
+INSERT INTO Companies (ID, cName, StockID) VALUES (null, null, null)
+
+\end{verbatim}
+
 \subsection{Expected Output}
 
 We expect the database to reject insertions where every field is a null value.
 
 We also expect the database to reject null inputs on fields with not-null constraints placed on them (primary/foreign keys, other fields based on business rules). 
+
+\subsubsection{Expected Exceptions}
+
+SQLAlchemy 
+
+\begin{verbatim}
+DataError
+\end{verbatim}
+
+\section{Other Test When We Decide}
 
 %\subsubsection{Constraints}
 
