@@ -13,29 +13,37 @@
 \setlength{\parindent}{0pt} %size of tab indent
 \setlength{\parskip}{0.8em} %space between paragraphs
 
-\title{Unit Tests}
+\title{Database Unit Tests}
 \maketitle
 
-\section{Summary}
+\section{Null Testing}
 
-\subsection{IndexDB}
+\subsection{Summary}
 
-\subsubsection{Constraints}
+When inserting all 'null' values into the database, the database should reject it.
 
-\subsubsection{Unit Tests}
+\subsection{Expected Output}
 
-\subsection{BondDB}
+We expect the database to reject insertions where every field is a null value.
 
-\subsection{CompanyDB}
+We also expect the database to reject null inputs on fields with not-null constraints placed on them (primary/foreign keys, other fields based on business rules). 
 
-\subsection{CommodityDB}
+%\subsubsection{Constraints}
 
-\subsection{notes}
+%\subsubsection{Unit Tests}
 
-unit tests on connection script between collection/database
-write up two theoretical unit tests we could do
-unit tests on triggers
-tests for constraints??
-write a test trying to insert faulty data into the database
+%\subsection{BondDB}
+
+%\subsection{CompanyDB}
+
+%\subsection{CommodityDB}
+
+%\subsection{notes}
+
+%unit tests on connection script between collection/database
+%write up two theoretical unit tests we could do
+%unit tests on triggers
+%tests for constraints??
+%write a test trying to insert faulty data into the database
 
 \end{document}
