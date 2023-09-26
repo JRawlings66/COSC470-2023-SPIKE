@@ -8,7 +8,4 @@ Temporary ReadMe.md file, TODO
 * Make a PR once done to merge into Developement branch
   * Do not approve your own merge without lead
 
-
-.gitignore is under the .idea directory, if anyone is looking for it. 
-<br>
-VSC should respect it
+.idea is just a workspace directory. ignore it, but makes pulling easier for pycharm etc.
