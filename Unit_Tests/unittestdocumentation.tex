@@ -28,7 +28,7 @@
 
 \subsection{Summary}
 
-When inserting all 'null' values into the database, the database should reject it.
+Null testing is the simple procedure of attempting an insert into a table with all fields of the row being null. This will be done to every table that has a mandatory field, which will be all of them, and every single test should result in a failed insert. This test is also weak constraint checking, since null fields will never be within a constraint. When this test is ran, it will attempt to insert entries into each table with all null values.
 
 \subsection{Example Test Input}
 
