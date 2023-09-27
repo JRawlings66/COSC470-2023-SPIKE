@@ -3,6 +3,14 @@
 \usepackage[utf8]{inputenc}
 %\usepackage{datatool} %database/graph/tables package
 
+\author{
+	Flath, Dakota\\
+	%\texttt{@irradiated}
+	\and
+	Volberg, Devon\\
+	%\texttt{something@gmail.com}
+}
+
 \begin{document}
 
 %styling
@@ -16,11 +24,21 @@
 \title{Database Unit Tests}
 \maketitle
 
-\section{Null Testing}
+\newpage
+
+\section{Null-Insert Testing}
 
 \subsection{Summary}
 
 Null testing is the simple procedure of attempting an insert into a table with all fields of the row being null. This will be done to every table that has a mandatory field, which will be all of them, and every single test should result in a failed insert. This test is also weak constraint checking, since null fields will never be within a constraint. When this test is ran, it will attempt to insert entries into each table with all null values.
+
+\subsection{Example Test Input}
+
+\begin{verbatim}
+
+INSERT INTO Companies (ID, cName, StockID) VALUES (null, null, null)
+
+\end{verbatim}
 
 \subsection{Expected Output}
 
@@ -28,11 +46,23 @@ We expect the database to reject insertions where every field is a null value.
 
 We also expect the database to reject null inputs on fields with not-null constraints placed on them (primary/foreign keys, other fields based on business rules). 
 
+<<<<<<< HEAD
 \section {Stock Entry Change Testing}
 
 \subsection{Summary}
 
 Stocks sometimes change names, like FB to META. That's handled by a python method. These tests ensure the python method runs smoothly, from checking various different mangled data sets and erronous data.
+=======
+\subsubsection{Expected Exceptions}
+
+SQLAlchemy 
+
+\begin{verbatim}
+DataError
+\end{verbatim}
+
+\section{Other Test When We Decide}
+>>>>>>> 2ece5eb030bbae1d2012450d59d58d5e862f8f1a
 
 %\subsubsection{Constraints}
 
