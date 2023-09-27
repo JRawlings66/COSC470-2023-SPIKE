@@ -17,4 +17,6 @@ File outputs:
 * Index_Output.json
 * Stocks_Output.json
 
-Running this these two processes will yield examples of data. The Data is not yet unified.
+Running these two processes will yield examples of data. The Data is not yet unified.
+
+https://lucid.app/documents/view/d1e3a627-4c66-4bf7-a959-17de0c152870
