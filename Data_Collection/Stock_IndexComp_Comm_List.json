@@ -1,6 +1,6 @@
 [
   {
-    "url": "financialmodelingprep.com/api/v3/quote/{QUERY_PARAMS}?apikey={API_KEY}",
+    "url": "https://financialmodelingprep.com/api/v3/quote/{QUERY_PARAMS}?apikey={API_KEY}",
     "api_key": "cae0e091a31773bcf0ffdd4bf97a9e61",
     "index_composites": [
       "^GSPC",
