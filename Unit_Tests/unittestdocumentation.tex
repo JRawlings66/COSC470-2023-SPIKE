@@ -52,6 +52,12 @@ We expect the database to reject insertions where every field is a null value.
 
 We also expect the database to reject null inputs on fields with not-null constraints placed on them (primary/foreign keys, other fields based on business rules). 
 
+\section {Stock Entry Change Testing}
+
+\subsection{Summary}
+
+Stocks sometimes change names, like FB to META. That's handled by a python method. These tests ensure the python method runs smoothly, from checking various different mangled data sets and erronous data.
+
 \subsubsection{Expected Exceptions}
 
 SQLAlchemy 
@@ -95,6 +101,8 @@ OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 
 \begin{verbatim}
 pymysql.err.OperationalError
 \end{verbatim}
+
+\section{Other Test When We Decide}
 
 %\subsubsection{Constraints}
 
