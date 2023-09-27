@@ -3,6 +3,9 @@
 # Iterate through the stocks using the key and url, then move onto the next API
 # TODO make the directories for file read and out absolute ie not relative locations to the script
 import json
+import time
+import os
+import errno
 import requests
 
 
@@ -13,7 +16,7 @@ def load_config():
     return config
 
 
-def make_queries(parsed_api_url, parsed_api_key, query_list):
+def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit):
     output = []
 
     # Iterate through each stocks and make a API call
@@ -27,17 +30,31 @@ def make_queries(parsed_api_url, parsed_api_key, query_list):
         # convert the response to json and append to list
         data = response.json()
         output += data
+        # Rate limit the query speed based on the rate limit
+        # From inside the JSON. Check that the key wasnt valued at null, signifying no rate limit.
+        if api_rate_limit is not None:
+            time.sleep(60 / api_rate_limit)
+
     return output
 
 
 def write_files(stock_json, index_json, commodity_json):
-    with open("Stocks_Output.json", "w") as outfile:
+
+    output_dir = "Output/"
+    if not os.path.exists(os.path.dirname(output_dir)):
+        try:
+            os.makedirs(os.path.dirname(output_dir))
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
+    with open("Output/Stocks_Output.json", "w") as outfile:
         json.dump(stock_json, outfile, indent=4)
 
-    with open("Index_Output.json", "w") as outfile:
+    with open("Output/Index_Output.json", "w") as outfile:
         json.dump(index_json, outfile, indent=4)
 
-    with open("Commodity_Output.json", "w") as outfile:
+    with open("Output/Commodity_Output.json", "w") as outfile:
         json.dump(commodity_json, outfile, indent=4)
 
 
@@ -52,12 +69,13 @@ if __name__ == "__main__":
     for api in range(len(JSON_config)):
         api_url = JSON_config[api]['url']
         api_key = JSON_config[api]['api_key']
+        api_rate_limit = JSON_config[api]['rate_limit_per_min']
         stock_list = JSON_config[api]['stocks']
         index_list = JSON_config[api]['index_composites']
         commodity_list = JSON_config[api]['commodities']
 
-        stock_output = make_queries(api_url, api_key, stock_list)
-        index_output = make_queries(api_url, api_key, index_list)
-        commodity_output = make_queries(api_url, api_key, commodity_list)
+        stock_output = make_queries(api_url, api_key, stock_list, api_rate_limit)
+        index_output = make_queries(api_url, api_key, index_list, api_rate_limit)
+        commodity_output = make_queries(api_url, api_key, commodity_list, api_rate_limit)
 
     write_files(stock_output, index_output, commodity_output)
