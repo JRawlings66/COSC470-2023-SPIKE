@@ -9,3 +9,6 @@ Temporary ReadMe.md file, TODO
   * Do not approve your own merge without lead
 
 .idea is just a workspace directory. ignore it, but makes pulling easier for pycharm etc.
+
+* All JSON files will follow the File_Name.json convention.
+* All py files will follow the file_name.py convention.
