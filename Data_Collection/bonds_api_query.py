@@ -5,6 +5,7 @@
 import json
 import requests
 
+
 # Loads the configuration file.
 def load_config():
     config_file = open("Bonds_List.json", "r")
@@ -28,7 +29,8 @@ def make_queries():
             start_date = api_datewindows[date][0]
             end_date = api_datewindows[date][1]
             # Replace the URL parameters with our current API configs
-            query = api_url.replace("{START_DATE}", start_date).replace("{END_DATE}", end_date).replace("{API_KEY}",                                                                                    api_key)
+            query = api_url.replace("{START_DATE}", start_date).replace("{END_DATE}", end_date).replace("{API_KEY}",
+                                                                                                        api_key)
             response = requests.get(query)
             # convert the response to json and append to list
             data = response.json()
