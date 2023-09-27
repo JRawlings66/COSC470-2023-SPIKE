@@ -11,7 +11,7 @@ import requests
 
 # Loads the configuration file.
 def load_config():
-    config_file = open("Stock_IndexComp_Comm_List.json", "r")
+    config_file = open("Config/Stock_IndexComp_Comm_List.json", "r")
     config = json.load(config_file)
     return config
 
@@ -20,8 +20,7 @@ def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit):
     output = []
 
     # Iterate through each stocks and make a API call
-    # TODO Rate limit this, as it can get super crazy (100 calls/min is what were allowed)
-    #   Make it query 5 at a time for instance
+    # TODO make it query with 5 items at a time ("APPL, TSLA, %5EGSPC")
     for query_itr in range(len(query_list)):
         query = query_list[query_itr]
         # Replace the URL parameters with our current API configs

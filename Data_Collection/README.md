@@ -2,20 +2,18 @@
 - Contains process scripts for API and data collection
 - Contains configurable lists for API source and Website Information
 
-Bonds_List.json is the configuration file for which dates we want frm the US treasury.
-<br>
-bonds_api_query.py is the script to fetch said bonds.
-<br><br>
-Stock_IndexComp_Comm_List.json is the configuration file for which stocks, index composites and
+# Configuration:
+* /Config/Bonds_List.json is the configuration file for which dates we want frm the US treasury.
+* Stock_IndexComp_Comm_List.json is the configuration file for which stocks, index composites and
 commodities we wish to fetch from each API.
-<br>
-stock_index_commodity_api_query.py is the script to fetch said data.
-<br><br>
-File outputs:
-* Bonds_Output.json
-* Commodity_Output.json
-* Index_Output.json
-* Stocks_Output.json
+# Processes:
+* bonds_api_query.py is the script to fetch said bonds.
+* stock_index_commodity_api_query.py is the script to fetch said data.
+# File outputs:
+* /Output/Bonds_Output.json
+* /Output/Commodity_Output.json
+* /Output/Index_Output.json
+* /Output/Stocks_Output.json
 
 Running these two processes will yield examples of data. The Data is not yet unified.
 
