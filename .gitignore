@@ -1,5 +1,2 @@
 # Output files (We dont want to commit these)
-Data_Collection/Bonds_Output.json
-Data_Collection/Stocks_Output.json
-Data_Collection/Commodity_Output.json
-Data_Collection/Index_Output.json
+Data_Collection/Output/
