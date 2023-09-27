@@ -11,7 +11,7 @@ import requests
 
 # Loads the configuration file.
 def load_config():
-    config_file = open("Bonds_List.json", "r")
+    config_file = open("Config/Bonds_List.json", "r")
     config = json.load(config_file)
     return config
 
@@ -28,7 +28,6 @@ def make_queries():
         api_rate_limit = JSON_config[api]['rate_limit_per_min']
 
         # Iterate through each start-end date pair and make a API call
-        # TODO Rate limit this, as it can get super crazy (100 calls/min is what were allowed)
         for date in range(len(api_datewindows)):
             start_date = api_datewindows[date][0]
             end_date = api_datewindows[date][1]
