@@ -1,2 +1,9 @@
 # Output files (We dont want to commit these)
 Data_Collection/Output/
+
+# Outputs for latex (Logs, etc)
+/auxil/
+*.aux
+*.synctex.gz
+*.log
+/out/
