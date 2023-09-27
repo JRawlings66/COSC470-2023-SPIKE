@@ -1,6 +1,12 @@
 \documentclass[12pt]{article}
 
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
 %\usepackage{datatool} %database/graph/tables package
 
 \author{
@@ -28,7 +34,7 @@
 
 \section{Null-Insert Testing}
 
-\subsection{Summary}
+\subsection{Objective}
 
 Null testing is the simple procedure of attempting an insert into a table with all fields of the row being null. This will be done to every table that has a mandatory field, which will be all of them, and every single test should result in a failed insert. This test is also weak constraint checking, since null fields will never be within a constraint. When this test is ran, it will attempt to insert entries into each table with all null values.
 
@@ -54,7 +60,41 @@ SQLAlchemy
 DataError
 \end{verbatim}
 
-\section{Other Test When We Decide}
+\section{Connection Failure}
+
+\subsection{Objective}
+
+To test for database connection failure in SQLAlchemy.
+
+\subsection{Test Code}
+
+\begin{verbatim}
+import logging
+
+from sqlalchemy import create_engine, text
+from sqlalchemy.exc import OperationalError
+
+try:
+    db_url = "mysql+pymysql://root:incorrect@localhost:13306/null_database"
+    engine = create_engine(db_url, pool_size=5, pool_recycle=3600)
+    conn = engine.connect()
+except OperationalError as err:
+    logging.error("Cannot connect to DB %s", err)
+    raise err
+
+\end{verbatim}
+
+\subsection{Expected Output}
+
+\begin{lstlisting}
+OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.17.0.1' (using password: YES)")
+\end{lstlisting}
+
+\subsubsection{Expected Exceptions}
+
+\begin{verbatim}
+pymysql.err.OperationalError
+\end{verbatim}
 
 %\subsubsection{Constraints}
 
