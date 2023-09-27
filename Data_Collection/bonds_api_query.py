@@ -3,6 +3,9 @@
 # Iterate through the stocks using the key and url, then move onto the next API
 # TODO make the directories for file read and out absolute ie not relative locations to the script
 import json
+import time
+import os
+import errno
 import requests
 
 
@@ -22,6 +25,7 @@ def make_queries():
         api_url = JSON_config[api]['api']
         api_key = JSON_config[api]['api_key']
         api_datewindows = JSON_config[api]['date_windows']
+        api_rate_limit = JSON_config[api]['rate_limit_per_min']
 
         # Iterate through each start-end date pair and make a API call
         # TODO Rate limit this, as it can get super crazy (100 calls/min is what were allowed)
@@ -35,11 +39,25 @@ def make_queries():
             # convert the response to json and append to list
             data = response.json()
             bonds_output += data
+
+            # Rate limit the query speed based on the rate limit
+            # From inside the JSON. Check that the key wasnt valued at null, signifying no rate limit.
+            if api_rate_limit is not None:
+                time.sleep(60/api_rate_limit)
+
     return bonds_output
 
 
 def write_file(output):
-    with open("Bonds_Output.json", "w") as outfile:
+    output_dir = "Output/"
+    if not os.path.exists(os.path.dirname(output_dir)):
+        try:
+            os.makedirs(os.path.dirname(output_dir))
+        except OSError as exc:  # Guard against race condition
+            if exc.errno != errno.EEXIST:
+                raise
+
+    with open("Output/Bonds_Output.json", "w") as outfile:
         json.dump(output, outfile, indent=4)
 
 
