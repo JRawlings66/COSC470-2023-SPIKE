@@ -31,11 +31,12 @@ try:
     # connect to mySQL server
     engine = create_engine(uri)
 
+    # test insert statement
+    sql = f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)"
+
     with engine.connect() as conn:
         result = conn.execute(sql)
 
-    # test insert statement
-    sql = f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)"
     # execute statement, engine.execute() creates connection, executes, and then close()s itself
     engine.execute(sql)
 
