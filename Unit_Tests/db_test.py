@@ -31,11 +31,15 @@ try:
     # connect to mySQL server
     engine = create_engine(uri)
 
+    #with engine.connect() as conn:
+    #    result = connection.execute(select())
+
     # test insert statement
     stmt = sql.text("INSERT INTO `2yr_bonds` VALUES (sysdate(), 1.0)")
 
     with engine.connect() as conn:
-        result = conn.execute(stmt)
+         result = conn.execute(stmt)
+    print(result.fetchall())
 
 except Exception:
     print(traceback.format_exc())
