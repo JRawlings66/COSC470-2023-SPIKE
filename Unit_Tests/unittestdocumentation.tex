@@ -52,13 +52,13 @@ We expect the database to reject insertions where every field is a null value.
 
 We also expect the database to reject null inputs on fields with not-null constraints placed on them (primary/foreign keys, other fields based on business rules). 
 
-\section {Stock Entry Change Testing}
+\section{Stock Entry Change Testing}
 
 \subsection{Summary}
 
 Stocks sometimes change names, like FB to META. That's handled by a python method. These tests ensure the python method runs smoothly, from checking various different mangled data sets and erronous data.
 
-\subsubsection{Expected Exceptions}
+\subsection{Expected Exceptions}
 
 SQLAlchemy 
 
@@ -66,11 +66,15 @@ SQLAlchemy
 DataError
 \end{verbatim}
 
-\section{Connection Failure}
+\subsubsection{What To Do}
+
+Should this test fail, the method in question likely has an error in it or the database has changed such that it can no longer function.
+
+\section{Connection Testing}
 
 \subsection{Objective}
 
-To test for database connection failure in SQLAlchemy.
+To test for database connection in SQLAlchemy.
 
 \subsection{Test Code}
 
@@ -92,15 +96,35 @@ except OperationalError as err:
 
 \subsection{Expected Output}
 
-\begin{lstlisting}
-OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.17.0.1' (using password: YES)")
-\end{lstlisting}
+It should connect as expected and output "Test Successful."
 
-\subsubsection{Expected Exceptions}
+\subsection{Expected Exceptions}
 
 \begin{verbatim}
 pymysql.err.OperationalError
 \end{verbatim}
+
+\begin{lstlisting}
+OperationalError: (pymysql.err.OperationalError) (1045, "Access denied for user 'root'@'172.17.0.1' (using password: YES)")
+\end{lstlisting}
+
+\subsubsection{What To Do}
+
+Should the test fail, it will output "Test Unsuccessful." and an error code if any.
+
+\section{SSH Test}
+
+\subsection{Objective}
+
+This test will test if the SSH and subsequently the server are functional.
+
+\subsection{Expected Output}
+
+It should connect as expected and output "Test Successful."
+
+\subsubsection{What To Do}
+
+Should the test fail, it will output "Test Unsuccessful." and an error code if any. For this test, the general recourse is just rechecking credentials and ensuring the server and yourself are both online.
 
 \section{Other Test When We Decide}
 
