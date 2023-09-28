@@ -44,14 +44,16 @@ try:
         #conn.commit()
 
     with engine.connect() as conn:
+        print(f"Inserting null values into {db}.2yr_bonds...")
         conn.execute(text("insert into `2yr_bonds` values (null, null)"))
         conn.commit()
 
-    with engine.connect() as conn:
-        result = conn.execute(select(two_year))
+    #with engine.connect() as conn:
+        #result = conn.execute(select(two_year))
 
-    print(result.fetchall())
+    #print(result.fetchall())
+    print(f"Test failed, null values inserted.")
 
 except Exception:
-    print(traceback.format_exc())
-    print(f"An SQL error has occurred.")
+    #print(traceback.format_exc())
+    print(f"Test successful.")
