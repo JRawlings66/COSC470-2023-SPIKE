@@ -56,4 +56,4 @@ try:
 
 except Exception:
     #print(traceback.format_exc())
-    print(f"Test successful.")
+    print(f"Null values not inserted. Test successful.")
