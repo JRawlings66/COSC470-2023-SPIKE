@@ -36,6 +36,7 @@ try:
 
     with engine.connect() as conn:
         result = conn.execute(stmt)
+        print(result)
 
 except Exception:
     print(traceback.format_exc())
