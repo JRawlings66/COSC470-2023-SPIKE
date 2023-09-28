@@ -17,6 +17,7 @@ class TestException(Exception):
             message += f"  {problem}\n"
         super().__init__(message)
 
+# 4 databases
 db = "dbs12118247"
 sql_port = 3306
 
@@ -28,12 +29,21 @@ try:
 
     two_year = table("2yr_bonds", column("Date"), column("Rate"))
 
+    #with engine.connect() as conn:
+        #conn.execute(text("insert into `2yr_bonds` values (sysdate(), 1.0)"))
+        #conn.commit()
+
     with engine.connect() as conn:
         print(f"Inserting null values into {db}.2yr_bonds...")
         conn.execute(text("insert into `2yr_bonds` values (null, null)"))
         conn.commit()
 
+    #with engine.connect() as conn:
+        #result = conn.execute(select(two_year))
+
+    #print(result.fetchall())
     print(f"Test failed, null values inserted.")
 
 except Exception:
+    #print(traceback.format_exc())
     print(f"Null values not inserted. Test successful.")
