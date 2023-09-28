@@ -3,7 +3,7 @@ import sys
 import os
 # import credentials # ssh/db credentials in a separate file
 from sqlalchemy import create_engine
-from sshtunnel import SSHTunnelForwarder
+# from sshtunnel import SSHTunnelForwarder
 from sqlalchemy.exc import ( #sqlalchemy common exceptions
     SQLAlchemyError,
     DataError,
