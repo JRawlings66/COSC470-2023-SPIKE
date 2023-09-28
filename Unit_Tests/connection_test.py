@@ -1,6 +1,7 @@
 import traceback
 import sys
-import credentials # ssh/db credentials in a separate file
+import os
+# import credentials # ssh/db credentials in a separate file
 from sqlalchemy import create_engine
 from sshtunnel import SSHTunnelForwarder
 from sqlalchemy.exc import ( #sqlalchemy common exceptions
@@ -21,29 +22,33 @@ class TestException(Exception):
         super().__init__(message)
 
 # 4 databases
-db = "dbName"
+db = "dbs12118247"
 
 try:
     print(f"Connecting to SSH...")
     with SSHTunnelForwarder(
-        (credentials.server_ip, 22),  # server ip, ssh port
-        ssh_username=credentials.shell_user,  # shell username
-        ssh_password=credentials.shell_pass,  # shell password
-        ssh_pkey=credentials.key_path,  # path to private key file
+        ('access975536837.webspace-data.io', 22),  # server ip, ssh port
+        ssh_username='u113494172',  # shell username
+        ssh_password='COSC-470-spike',  # shell password
+        # ssh_pkey=credentials.key_path,  # path to private key file
         remote_bind_address=(
             "127.0.0.1",
             3306,
         ),  # localhost, mariadb default port
     ) as tunnel:
         tunnel.start()
+
         try:
             print("Connecting to database...")
-            uri = f"mysql+pymysql://root:{credentials.root_pass}@127.0.0.1:{tunnel.local_bind_port}/{db}"
+            uri = f"mysql+pymysql://dbu362865:{'COSC-470-admin'}@127.0.0.1:{tunnel.local_bind_port}/{db}"
             # connect to mySQL server
             engine = create_engine(uri)
 
-            # truncate table so we have a clean slate to append our updated data to (preserves constraints!)
-            sql = f"INSERT INTO {table} ({col1}, {col2}) VALUES ()"
+            with engine.connect() as conn:
+                result = conn.execute(sql)
+
+            # test insert statement
+            sql = f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)"
             # execute statement, engine.execute() creates connection, executes, and then close()s itself
             engine.execute(sql)
 
