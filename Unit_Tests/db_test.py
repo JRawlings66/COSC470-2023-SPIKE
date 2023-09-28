@@ -27,7 +27,7 @@ sql_port = 3306
 
 try:
     print("Connecting to database...")
-    uri = f"mysql+pymysql://dbu362865:{'COSC-470-admin'}@db5014580903.hosting-data.io:{sql_port}/{db}"
+    uri = f"mysql+pymysql://dbu362865:{'cosc-470-admin'}@db5014580903.hosting-data.io:{sql_port}/{db}"
     # connect to mySQL server
     engine = create_engine(uri)
 
