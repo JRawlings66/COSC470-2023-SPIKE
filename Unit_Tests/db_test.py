@@ -39,8 +39,12 @@ try:
 
     two_year = table("2yr_bonds", column("Date"), column("Rate"))
 
+    #with engine.connect() as conn:
+        #conn.execute(text("insert into `2yr_bonds` values (sysdate(), 1.0)"))
+        #conn.commit()
+
     with engine.connect() as conn:
-        conn.execute(text("insert into `2yr_bonds` values (sysdate(), 1.0)"))
+        conn.execute(text("insert into `2yr_bonds` values (null, null)"))
         conn.commit()
 
     with engine.connect() as conn:
