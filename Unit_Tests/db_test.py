@@ -2,7 +2,7 @@ import traceback
 import sys
 import os
 # import credentials # ssh/db credentials in a separate file
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, sql
 # from sshtunnel import SSHTunnelForwarder
 from sqlalchemy.exc import ( #sqlalchemy common exceptions
     SQLAlchemyError,
@@ -32,13 +32,10 @@ try:
     engine = create_engine(uri)
 
     # test insert statement
-    sql = sqlalchemy.text(f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)")
+    stmt = sql.text(f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)")
 
     with engine.connect() as conn:
-        result = conn.execute(sql)
-
-    # execute statement, engine.execute() creates connection, executes, and then close()s itself
-    engine.execute(sql)
+        result = conn.execute(stmt)
 
 except Exception:
     print(traceback.format_exc())
