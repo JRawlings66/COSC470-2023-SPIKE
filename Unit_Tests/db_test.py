@@ -2,7 +2,11 @@ import traceback
 import sys
 import os
 # import credentials # ssh/db credentials in a separate file
-from sqlalchemy import create_engine, sql
+from sqlalchemy import column
+from sqlalchemy import create_engine
+from sqlalchemy import select
+from sqlalchemy import table
+from sqlalchemy import text
 # from sshtunnel import SSHTunnelForwarder
 from sqlalchemy.exc import ( #sqlalchemy common exceptions
     SQLAlchemyError,
