@@ -32,7 +32,7 @@ try:
     engine = create_engine(uri)
 
     # test insert statement
-    stmt = sql.text(f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0)")
+    stmt = sql.text(f"INSERT INTO {'2yr_bonds'} ({'Date'}, {'Rate'}) VALUES (curdate(), 1.0);")
 
     with engine.connect() as conn:
         result = conn.execute(stmt)
