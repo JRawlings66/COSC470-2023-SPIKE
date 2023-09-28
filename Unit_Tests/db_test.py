@@ -38,7 +38,7 @@ try:
     two_year = table("2yr_bonds", column("Date"), column("Rate"))
 
     with engine.connect() as conn:
-        result = connection.execute(select(two_year.c.Date))
+        result = conn.execute(select(two_year.c.Date))
 
     print(result.fetchall())
 
