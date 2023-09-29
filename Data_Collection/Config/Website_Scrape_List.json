@@ -1,0 +1,16 @@
+[
+  {
+    "url": "https://ca.finance.yahoo.com/quote/{SYMBOL}",
+    "step_speed_limit_seconds": null,
+    "symbols": [
+      "AAPL"
+    ]
+  },
+    {
+    "url": "https://www.google.com/finance/quote/{SYMBOL}?hl=en",
+    "step_speed_limit_seconds": null,
+    "symbols": [
+      "RBLX:NYSE"
+    ]
+  }
+]
