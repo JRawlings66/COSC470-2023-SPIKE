@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" serverName="ionos is shit" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" serverName="Ionos Dev" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
-      <paths name="ionos is shit">
+      <paths name="Ionos Dev">
         <serverdata>
           <mappings>
             <mapping local="$PROJECT_DIR$" web="/" />
