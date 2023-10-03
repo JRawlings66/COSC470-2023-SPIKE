@@ -3,11 +3,13 @@ CREATE TRIGGER companies_id_gen_trg
 BEFORE INSERT ON Companies
 FOR EACH ROW
 BEGIN
+    -- vars
 	DECLARE new_id BIGINT;
 	DECLARE temp INTEGER;
 	DECLARE valid INTEGER;
     SET new_id = UUID_SHORT();
     SET valid = 1;
+	-- code
 	SELECT COUNT(*) INTO temp FROM Companies WHERE Symbol = NEW.Symbol;
 	IF (temp = 0) THEN
     	WHILE (valid = 1) DO
