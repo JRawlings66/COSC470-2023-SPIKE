@@ -1,7 +1,7 @@
 [
   {
     "url": "https://financialmodelingprep.com/api/v3/historical-price-full/{QUERY_PARAMS}?from={FROM_DATE}&to={TODAY_DATE}&apikey={API_KEY}",
-    "api_key": "cae0e091a31773bcf0ffdd4bf97a9e61",
+    "api_key": "CENSORED",
     "observable_days": 200,
     "rate_limit_per_min": 300,
     "index_composites": [
