@@ -38,7 +38,7 @@ def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit, obs
         # convert the response to json and append to list
         data = response.json()
         output.append(data)
-       # print(output)
+        # print(output)
         # Rate limit the query speed based on the rate limit
         # From inside the JSON. Check that the key wasnt valued at null, signifying no rate limit.
         if api_rate_limit is not None:
