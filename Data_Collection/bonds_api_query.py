@@ -56,7 +56,7 @@ def write_file(output):
             if exc.errno != errno.EEXIST:
                 raise
 
-    with open("Output/Bonds_Output.json", "w") as outfile:
+    with open("Output/Raw_Bonds_Output.json", "w") as outfile:
         json.dump(output, outfile, indent=4)
 
 

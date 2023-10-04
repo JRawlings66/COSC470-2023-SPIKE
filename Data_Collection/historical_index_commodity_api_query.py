@@ -57,13 +57,13 @@ def write_files(stock_json, index_json, commodity_json):
             if exc.errno != errno.EEXIST:
                 raise
 
-    with open("Output/Historical_Stocks_Output.json", "w") as outfile:
+    with open("Output/Raw_Historical_Stocks_Output.json", "w") as outfile:
         json.dump(stock_json, outfile, indent=4)
 
-    with open("Output/Historical_Index_Output.json", "w") as outfile:
+    with open("Output/Raw_Historical_Index_Output.json", "w") as outfile:
         json.dump(index_json, outfile, indent=4)
 
-    with open("Output/Historical_Commodity_Output.json", "w") as outfile:
+    with open("Output/Raw_Historical_Commodity_Output.json", "w") as outfile:
         json.dump(commodity_json, outfile, indent=4)
 
 
