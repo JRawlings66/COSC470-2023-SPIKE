@@ -39,6 +39,14 @@ class NullTest(unittest.TestCase):
             with engine.connect() as conn:
                 conn.execute(text("insert into `Bonds` values (null, null, null)"))
                 conn.commit()
+                
+    def test_bonds2(self):
+        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
+        engine = create_engine(uri)
+        with self.assertRaises(IntegrityError):
+            with engine.connect() as conn:
+                conn.execute(text("insert into `Bonds` values (null, null, null)"))
+                conn.commit()        
 
 
     #print(f"Test failed, null values inserted.")
