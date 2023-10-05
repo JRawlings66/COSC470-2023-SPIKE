@@ -3,7 +3,8 @@
 
 import traceback
 import csv
-import pandas as pd
+import sys
+import json
 import credentials
 
 from sqlalchemy import column
@@ -23,60 +24,42 @@ from sqlalchemy.exc import (
     TimeoutError,
 )
 
-# dummy custom exception for later
-class TestException(Exception):
-    def __init__(self, problems):
-        message = "Primary key violation for the following rows:\n"
-        for problem in problems:
-            message += f"  {problem}\n"
-        super().__init__(message)
+def load_json(path):
+    with open(path) as file:
+        data = json.load(file)
+    
+    return data
 
 def main():
-    # db name
-    db = ""
+    # dbname
+    db = 'bonds'
+    # json path for test purposes
+    path = './test.json'
+    creds = credentials.databases['bonds']
     # default sql port, shared between all db servers
     sql_port = 3306
-    # set pandas options
-    pd.set_option("display.max_rows", 100)
-    pd.set_option("display.max_columns", None)
-    
-    # TODO; load csv from connection team, or convert json?
-    """
-    data = pd.read_csv("path/to/csv") # skiprows=
-    # NaN to empty strings (or output csv will be filled with NaN's in empty fields)
-    data = data.fillna('')
-    """
 
     try:
+        print("Loading JSON...")
+        # load json to python dict
+        data = load_json(path)
+        
         print(f"Connecting to {db}...")
-        uri = f"mysql+pymysql://user:{'password'}@hostname:{sql_port}/{db}"
+        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         # connect to mySQL server
         engine = create_engine(uri, echo=True)
-        # create SQLAlchemy table object
-        two_year = table("2yr_bonds", column("Date"), column("Rate"))
-
-        # start mySQL engine
+        # start engine
         with engine.connect() as conn:
-            # select records from table TODO; select entire db
-            # records = conn.execute(select(two_year))
-            # read from sql into pandas dataframe object
-            records = pd.read_sql(
-                sql=two_year, #SQLAlchemy Selectable (select or text object)
-                con=conn, # sqlalchemy engine connection
-                )
-            try:
-                records.to_csv(
-                    path_or_buf='bonds_db.csv', # output path
-                    header=True, # write column headers
-                    index=False, # don't write pandas index
-                    mode='w', # truncate existing file, a for append, x for exclusive creation
-                    )
-            except Exception:
-                traceback.format_exc()
-                print("CSV error")
+            print(f"Inserting values into {db}...")
+            for record in data:
+                conn.execute(text(f"insert into `Bonds` values ({record['Date']}, {record['BondDuration']}, {record['Rate']})"))
+            conn.commit()
+            print(f"Selecting values from {db}...")
+            result = conn.execute(text("select * from `Bonds`"))
+            print(result)
     except Exception:
         traceback.format_exc()
-        print(f"SQL connection error")
+        print("SQL connection error")
 
 # protected entrypoint
 if __name__ == "__main__":
