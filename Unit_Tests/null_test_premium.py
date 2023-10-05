@@ -35,7 +35,7 @@ class NullTest(unittest.TestCase):
     def test_bonds(self):
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
-                conn.execute(text("insert into `bonds` values (null, null, null)"))
+                conn.execute(text("insert into `Bonds` values (null, null, null)"))
                 conn.commit()
 
 
