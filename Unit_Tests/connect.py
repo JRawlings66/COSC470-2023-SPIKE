@@ -61,7 +61,7 @@ def main():
             with open('bonds.csv', mode='w') as output:
                 csv_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 for row in result:
-                    csv_writer.writerow(row)
+                    csv_writer.writerow(list(row))
     except Exception:
         traceback.format_exc()
         print("SQL connection error")
