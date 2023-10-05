@@ -3,7 +3,13 @@
     "url": "https://financialmodelingprep.com/api/v3/quote/{QUERY_PARAMS}?apikey={API_KEY}",
     "api_key": "CENSORED",
     "rate_limit_per_min": 300,
-    "index_composites": ["^GSPC", "^IXIC", "^DJI", "^RUA", "^FTSE"],
+    "index_composites": [
+      "^GSPC", 
+      "^IXIC", 
+      "^DJI", 
+      "^RUA", 
+      "^FTSE"
+    ],
     "stocks": [
       "AAPL",
       "NDAQ",
@@ -26,6 +32,12 @@
       "V",
       "CVX"
     ],
-    "commodities": ["HGUSD", "CLUSD", "GCUSD", "SIUSD", "NGUSD"]
+    "commodities": [
+      "HGUSD", 
+      "CLUSD", 
+      "GCUSD", 
+      "SIUSD", 
+      "NGUSD"
+    ]
   }
 ]

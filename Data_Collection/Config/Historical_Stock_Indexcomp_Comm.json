@@ -5,10 +5,10 @@
     "observable_days": 200,
     "rate_limit_per_min": 300,
     "index_composites": [
-      "^GSPC",
-      "^IXIC",
-      "^DJI",
-      "^RUA",
+      "^GSPC", 
+      "^IXIC", 
+      "^DJI", 
+      "^RUA", 
       "^FTSE"
     ],
     "stocks": [
@@ -34,10 +34,10 @@
       "CVX"
     ],
     "commodities": [
-      "HGUSD",
-      "CLUSD",
-      "GCUSD",
-      "SIUSD",
+      "HGUSD", 
+      "CLUSD", 
+      "GCUSD", 
+      "SIUSD", 
       "NGUSD"
     ]
   }

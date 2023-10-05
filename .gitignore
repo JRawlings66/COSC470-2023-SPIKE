@@ -1,6 +1,5 @@
 # Output files (We dont want to commit these)
 Data_Collection/Output/
-OLTP_Database/Processing/config.json
 
 # Outputs for latex (Logs, etc)
 /auxil/
