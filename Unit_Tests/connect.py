@@ -57,11 +57,11 @@ def main():
             print(f"Selecting values from {db}...")
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
-                print(row)
+                print(list(row))
             with open('bonds.csv', mode='w') as output:
                 csv_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 for row in result:
-                    csv_writer.writerow(list(row))
+                    csv_writer.writerow([row.Date, row.BondDuration, row.Rate])
     except Exception:
         traceback.format_exc()
         print("SQL connection error")
