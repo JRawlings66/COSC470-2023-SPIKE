@@ -62,6 +62,7 @@ def main():
                 csv_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
                 for row in result:
                     csv_writer.writerow([row.Date, row.BondDuration, row.Rate])
+                output.flush()
     except Exception:
         traceback.format_exc()
         print("SQL connection error")
