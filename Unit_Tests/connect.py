@@ -35,6 +35,7 @@ def main():
     db = 'bonds'
     # json path for test purposes
     path = './test.json'
+    # load database credentials dict
     creds = credentials.databases['bonds']
     # default sql port, shared between all db servers
     sql_port = 3306
