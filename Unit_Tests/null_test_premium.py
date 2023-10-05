@@ -21,30 +21,20 @@ from sqlalchemy.exc import (
     TimeoutError,
 )
 
-db = ""
+db = "bonds"
 sql_port = 3306
-uri = f"mysql+pymysql://user:{'password'}@hostname:{sql_port}/{db}"
+# load database credentials dict
+creds = credentials.databases[db]
+uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
 # connect to mySQL server
 engine = create_engine(uri)
 
 class NullTest(unittest.TestCase):
     
-    def test_2yr(self):
+    def test_bonds(self):
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
-                conn.execute(text("insert into `2yr_bonds` values (null, null)"))
-                conn.commit()
-                
-    def test_5yr(self):
-        with self.assertRaises(IntegrityError):
-            with engine.connect() as conn:
-                conn.execute(text("insert into `5yr_bonds` values (null, null)"))
-                conn.commit()
-    
-    def test_7yr(self):
-        with self.assertRaises(IntegrityError):
-            with engine.connect() as conn:
-                conn.execute(text("insert into `7yr_bonds` values (null, null)"))
+                conn.execute(text("insert into `bonds` values (null, null, null)"))
                 conn.commit()
 
 
