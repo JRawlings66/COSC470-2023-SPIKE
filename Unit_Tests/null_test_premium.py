@@ -26,13 +26,15 @@ db = "bonds"
 sql_port = 3306
 # load database credentials dict
 creds = credentials.databases[db]
-uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
+uri = None
 # connect to mySQL server
-engine = create_engine(uri)
+engine = None
 
 class NullTest(unittest.TestCase):
     
     def test_bonds(self):
+        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
+        engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
                 conn.execute(text("insert into `Bonds` values (null, null, null)"))
