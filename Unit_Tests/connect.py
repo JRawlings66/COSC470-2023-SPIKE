@@ -47,7 +47,7 @@ def main():
         print(f"Connecting to {db}...")
         uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         # connect to mySQL server
-        engine = create_engine(uri, echo=True)
+        engine = create_engine(uri) # echo=True for sql feedback on every op
         # start engine
         with engine.connect() as conn:
             print(f"Inserting values into {db}...")
@@ -56,7 +56,8 @@ def main():
             conn.commit()
             print(f"Selecting values from {db}...")
             result = conn.execute(text("select * from `Bonds`"))
-            print(result)
+            for row in result:
+                print(row)
     except Exception:
         traceback.format_exc()
         print("SQL connection error")
