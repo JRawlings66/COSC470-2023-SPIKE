@@ -3,6 +3,7 @@
 import traceback
 import sys
 import os
+import credentials
 import unittest
 
 from sqlalchemy import column
