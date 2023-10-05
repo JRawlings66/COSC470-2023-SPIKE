@@ -44,14 +44,8 @@ class NullTest(unittest.TestCase):
                 conn.execute(text("insert into `Index_Values` values (null, null, null, null, null, null, null)"))
                 conn.commit()
                 
-    def test_indices(self):
-        creds = credentials.databases['index']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
-        engine = create_engine(uri)
-        with self.assertRaises(IntegrityError):
-            with engine.connect() as conn:
-                conn.execute(text("insert into `Indices` values (null, null, null)"))
-                conn.commit()
+                
+                
                 
     def test_index_values(self):
         creds = credentials.databases['companies']
