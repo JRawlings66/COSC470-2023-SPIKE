@@ -1,0 +1,43 @@
+[
+  {
+    "url": "https://financialmodelingprep.com/api/v3/quote/{QUERY_PARAMS}?apikey={API_KEY}",
+    "api_key": "CENSORED",
+    "rate_limit_per_min": 300,
+    "index_composites": [
+      "^GSPC", 
+      "^IXIC", 
+      "^DJI", 
+      "^RUA", 
+      "^FTSE"
+    ],
+    "stocks": [
+      "AAPL",
+      "NDAQ",
+      "META",
+      "GOOG",
+      "MSFT",
+      "NVDA",
+      "ZNGA",
+      "WBA",
+      "TSLA",
+      "NKE",
+      "AMZN",
+      "WMT",
+      "XOM",
+      "JPM",
+      "COST",
+      "PEP",
+      "ADBE",
+      "JNJ",
+      "V",
+      "CVX"
+    ],
+    "commodities": [
+      "HGUSD", 
+      "CLUSD", 
+      "GCUSD", 
+      "SIUSD", 
+      "NGUSD"
+    ]
+  }
+]
