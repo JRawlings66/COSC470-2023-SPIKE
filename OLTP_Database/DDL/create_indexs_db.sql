@@ -4,19 +4,19 @@ USE index_db;
 
 CREATE TABLE `Indices` (
   `ID` BIGINT,
-  `Symbol` VARCHAR(10),
-  `Name` VARCHAR(20),
+  `Symbol` VARCHAR(10) NOT NULL,
+  `Name` VARCHAR(20) NOT NULL,
   PRIMARY KEY (`ID`)
 );
 
 CREATE TABLE `Index_Values` (
   `Date` DATETIME,
   `IndexID` BIGINT,
-  `Open` DECIMAL,
-  `High` DECIMAL,
-  `Low` DECIMAL,
-  `Close` DECIMAL,
-  `Volume` DECIMAL,
+  `Open` DECIMAL(12,2),
+  `High` DECIMAL(12,2),
+  `Low` DECIMAL(12,2),
+  `Close` DECIMAL(12,2),
+  `Volume` DECIMAL(12,2),
   PRIMARY KEY (`Date`, `IndexID`),
   FOREIGN KEY (`IndexID`) REFERENCES `Indices`(`ID`)
 );
