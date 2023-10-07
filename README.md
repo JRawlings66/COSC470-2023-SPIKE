@@ -1,3 +1,6 @@
+# Branch Structure:
+Development <- Sprint# <- Feature (CS-##)
+
 # Project Root
 Each team has a directory for now.
 <br>
@@ -12,3 +15,10 @@ Temporary ReadMe.md file, TODO
 
 * All JSON files will follow the File_Name.json convention.
 * All py files will follow the file_name.py convention.
+
+# Dependencies
+pip
+```pip
+pip install bs4
+pip install mysql-connector-python
+```

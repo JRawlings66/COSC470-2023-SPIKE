@@ -11,9 +11,13 @@ import requests
 
 # Loads the configuration file.
 def load_config():
-    config_file = open("Config/Bonds_List.json", "r")
-    config = json.load(config_file)
-    return config
+    config_path = "Config/Bonds_List.json"
+    try:
+        config_file = open(config_path, "r")
+        config = json.load(config_file)
+        return config
+    except IOError:
+        print(f"IOError while accessing bonds query config file at path: {config_path}")
 
 
 def make_queries():
@@ -56,7 +60,7 @@ def write_file(output):
             if exc.errno != errno.EEXIST:
                 raise
 
-    with open("Output/Bonds_Output.json", "w") as outfile:
+    with open("Output/Raw_Bonds_Output.json", "w") as outfile:
         json.dump(output, outfile, indent=4)
 
 

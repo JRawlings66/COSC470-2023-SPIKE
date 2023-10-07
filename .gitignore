@@ -7,3 +7,6 @@ Data_Collection/Output/
 *.synctex.gz
 *.log
 /out/
+
+# Credentials from Unit Tests
+/Unit_Tests/credentials
