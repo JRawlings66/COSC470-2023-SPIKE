@@ -1,0 +1,29 @@
+{
+  "companies": {
+    "host": "your_host",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "your_database"
+  },
+
+  "bonds": {
+    "host": "your_host",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "your_database"
+  },
+
+  "indexes": {
+    "host": "your_host",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "your_database"
+  },
+
+  "commodities": {
+    "host": "your_host",
+    "user": "your_username",
+    "password": "your_password",
+    "database": "your_database"
+  }
+}

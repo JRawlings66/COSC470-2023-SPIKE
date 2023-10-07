@@ -2,49 +2,41 @@ CREATE DATABASE IF NOT EXISTS company_db;
 
 USE company_db;
 
-CREATE TABLE `companies` (
-  `ID` INTEGER,
+CREATE TABLE `Companies` (
+  `ID` BIGINT,
   `CompanyName` VARCHAR(30),
-  `StockID` INTEGER,
-  PRIMARY KEY (`ID`)
-);
-
-CREATE TABLE `stocks` (
-  `ID` INTEGER,
   `Symbol` VARCHAR(5),
   PRIMARY KEY (`ID`)
 );
 
-CREATE TABLE `changelogs` (
-  `CompanyID` INTEGER,
-  `StockID` INTEGER,
+CREATE TABLE `Changelogs` (
+  `CompanyID` BIGINT,
   `Date` DATETIME,
-  `New_Symbol` VARCHAR(5),
-  `Old_Symbol` VARCHAR(5),
-  `Symbol_Changed` BOOLEAN,
-  `New_Name` VARCHAR(30),
-  `Old_Name` VARCHAR(30),
-  `Name_Changed` BOOLEAN,
-  PRIMARY KEY (`CompanyID`, `StockID`),
-  FOREIGN KEY (`CompanyID`) REFERENCES `Companies`(`ID`),
-  FOREIGN KEY (`StockID`) REFERENCES `Stocks`(`ID`),
-  KEY `CK` (`Date`)
+  `NewSymbol` VARCHAR(5),
+  `OldSymbol` VARCHAR(5),
+  `SymbolChanged` BOOLEAN,
+  `NewName` VARCHAR(30),
+  `OldName` VARCHAR(30),
+  `NameChanged` BOOLEAN,
+  PRIMARY KEY (`CompanyID`, `Date`),
+  FOREIGN KEY (`CompanyID`) REFERENCES `Companies`(`ID`)
 );
 
-CREATE TABLE `stock_Values` (
-  `StockID` INTEGER,
+CREATE TABLE `Stock_Values` (
+  `CompanyID` BIGINT,
   `Date` DATETIME,
   `Open` DECIMAL,
   `High` DECIMAL,
   `Low` DECIMAL,
   `Close` DECIMAL,
   `Volume` DECIMAL,
-  PRIMARY KEY (`StockID`, `Date`),
-  FOREIGN KEY (`StockID`) REFERENCES `Stocks`(`ID`)
+  `Exchange` VARCHAR(20),
+  PRIMARY KEY (`CompanyID`, `Date`),
+  FOREIGN KEY (`CompanyID`) REFERENCES `Companies`(`ID`)
 );
 
-CREATE TABLE `company_statements` (
-  `CompanyID` INTEGER,
+CREATE TABLE `Company_Statements` (
+  `CompanyID` BIGINT,
   `Date` DATETIME,
   `Sector` VARCHAR(30),
   `Industry` VARCHAR(30),

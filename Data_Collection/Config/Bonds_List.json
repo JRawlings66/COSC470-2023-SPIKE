@@ -2,7 +2,7 @@
     {
         "api": "https://financialmodelingprep.com/api/v4/treasury?from={START_DATE}&to={END_DATE}&apikey={API_KEY}",
         "rate_limit_per_min": 300,
-        "api_key": "CENSORED",
+        "api_key": "KEY",
         "date_windows": [
             ["2023-03-30", "2023-06-30"],
             ["2022-12-30", "2023-03-30"],
