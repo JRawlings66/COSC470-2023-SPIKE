@@ -1,7 +1,7 @@
 [
   {
     "url": "https://financialmodelingprep.com/api/v3/quote/{QUERY_PARAMS}?apikey={API_KEY}",
-    "api_key": "",
+    "api_key": "KEY",
     "rate_limit_per_min": 300,
     "index_composites": [
       "^GSPC",

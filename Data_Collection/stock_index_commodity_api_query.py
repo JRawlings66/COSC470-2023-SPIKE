@@ -11,9 +11,13 @@ import requests
 
 # Loads the configuration file.
 def load_config():
-    config_file = open("Config/Stock_IndexComp_Comm_List.json", "r")
-    config = json.load(config_file)
-    return config
+    config_path = "Config/Stock_IndexComp_Comm_List.json"
+    try:
+        config_file = open(config_path, "r")
+        config = json.load(config_file)
+        return config
+    except IOError:
+        print(f"IOError while accessing stock/index/commodity query config at path: {config_path}")
 
 
 def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit):

@@ -1,0 +1,60 @@
+%! Author = Dylan S, Vanessa D
+%! Date = 9/27/2023
+
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{hyperref}
+
+\geometry{a4paper, margin=1in}
+\title{Unit Test Documentation: Bonds API Condig Load}
+\author{Data Collection Team}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+
+\section{Introduction}\label{sec:introduction}
+This document provides documentation for a unit test that verifies the functionality of the API configuration loading is implemented in the bonds\_api\_query Python script.
+The unit test is designed to ensure that the API call retrieves data successfully from the specified API endpoint using the provided JSON configuration.
+
+\section{Test Objective}\label{sec:test-objective}
+The objective of this unit test is to confirm that the API call to the specified URL with the provided parameters and API key results in a successful response (HTTP status code 200) and that the response data is properly parsed.
+
+\section{Test Environment}\label{sec:test-environment}
+The unit test is executed within the context of the Python script provided.
+The script loads the JSON configuration, constructs the API query URL, makes the API call, and validates the response.
+
+\section{Test Procedure}\label{sec:test-procedure}
+The following steps outline the procedure for the unit test:
+
+\begin{enumerate}
+  \item \textbf{Load JSON Configuration}: The unit test begins by loading the JSON configuration file (\texttt{Bonds\_List.json}) that specifies the API URL, API key, date windows, and rate limit.
+
+  \item \textbf{API Configuration Extraction}: The API configuration is extracted from the loaded JSON. For this test, we assume that there is a single API configuration in the JSON\@.
+
+  \item \textbf{Construct API Query URL}: Using the extracted configuration, the unit test constructs the API query URL by replacing placeholders for start date, end date, and API key in the URL template.
+
+  \item \textbf{Make API Call}: The unit test makes an HTTP GET request to the constructed API query URL using the \texttt{requests} library.
+
+  \item \textbf{Validate HTTP Response}: The unit test checks the HTTP response status code to ensure it is 200 (OK), indicating a successful API call.
+  Failure to receive a 200 status code will result in a test failure.
+
+  \item \textbf{Parse JSON Response}: The unit test attempts to parse the JSON response received from the API call.
+  Any failure in parsing will result in a test failure.
+
+  \item \textbf{Check Data Availability}: The unit test checks whether the parsed JSON data is not empty.
+  An empty response data will result in a test failure.
+
+\end{enumerate}
+
+\section{Expected Outcome}\label{sec:expected-outcome}
+The expected outcome of this unit test is that the API call to the specified URL with the provided parameters and API key is successful.
+The HTTP response status code is expected to be 200 (OK), and the parsed JSON response data should not be empty.
+
+\section{Conclusion}\label{sec:conclusion}
+This unit test verifies the functionality of the API call implemented in the Python script, ensuring that it can successfully retrieve data from the specified API endpoint.
+A successful outcome confirms that the API integration is functioning as expected.
+
+\end{document}
