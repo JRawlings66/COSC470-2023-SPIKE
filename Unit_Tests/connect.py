@@ -67,7 +67,7 @@ def main():
         # maybe this will still close it
         with connect() as conn:
 
-            conn.execute(text(f"insert into `Bonds` values (SYSDATE, 1.0, 2.0)"))
+            conn.execute(text(f"insert into `Bonds` values (SYSDATE(), 1.0, 2.0)"))
             conn.commit()
             print(f"Selecting values from database...")
             result = conn.execute(text("select * from `Bonds`"))
