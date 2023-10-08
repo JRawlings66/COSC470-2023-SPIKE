@@ -23,7 +23,7 @@ from sqlalchemy.exc import (
 )
 
 sql_port = 3306
-creds = credentials['db']
+creds = credentials.db
 uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
 
 class NullTest(unittest.TestCase):
