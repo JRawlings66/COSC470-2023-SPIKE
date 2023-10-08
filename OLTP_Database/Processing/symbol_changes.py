@@ -41,7 +41,24 @@ def connect():
 def main():
     try:
         with connect() as db_conn:
-            for change in company_change_list
+            for change in company_change_list:
+                old_symbol = change["oldSymbol"]
+                new_symbol = change["newSymbol"]
+                symbol_changed = 0
+                if old_symbol != new_symbol:
+                    symbol_changed = 1
+                company_name = change["name"]
+                result = db_conn.execute(text(f"SELECT * FROM `Companies` WHERE Symbol='{old_symbol}'"))
+                if not result.first():
+                    continue
+                ## q_result = result.mappings() for dict with column-based keys?
+                stored_company_name = result.row.CompanyName ## Please review this line for appropriate accessing of result attr
+                company_id = result.row.ID ## Please review this line for appropriate accessing of result attr
+                name_changed = 0
+                if stored_company_name != company_name:
+                    name_changed = 1
+                date = datetime.now()
+                db_conn.execute(text(f"INSERT INTO `Changelogs` VALUES('{company_id}','{date}','{new_symbol}','{old_symbol}','{symbol_changed}','{company_name}','{stored_company_name}','{name_changed}')"))
     except Exception as e:
         print("Encountered SQL or system exception:")
         print(e)
