@@ -1,6 +1,3 @@
-# https://docs.sqlalchemy.org/en/20/changelog/migration_20.html
-
-
 import traceback
 import csv
 import sys
@@ -13,17 +10,6 @@ from sqlalchemy import create_engine
 from sqlalchemy import select
 from sqlalchemy import table
 from sqlalchemy import text
-
-# common sqlalchemy exceptions
-from sqlalchemy.exc import (
-    SQLAlchemyError,
-    DataError,
-    DatabaseError,
-    IntegrityError,
-    OperationalError,
-    ProgrammingError,
-    TimeoutError,
-)
 
 """
 connection function, creates engine and returns connection object
