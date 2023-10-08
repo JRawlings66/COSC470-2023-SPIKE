@@ -47,22 +47,22 @@ def main():
                 symbol_changed = 0
                 if old_symbol != new_symbol:
                     symbol_changed = 1
-                company_name = change["name"]
+                new_company_name = change["name"]
                 result = db_conn.execute(text(f"SELECT * FROM `Companies` WHERE Symbol='{old_symbol}'"))
                 if not result.first():
                     continue
                 ## q_result = result.mappings() for dict with column-based keys?
-                stored_company_name = result.row.CompanyName ## Please review this line for appropriate accessing of result attr
-                company_id = result.row.ID ## Please review this line for appropriate accessing of result attr
+                stored_company_name = result.fetchone()["CompanyName"] ## Please review this line for appropriate accessing of result attr
+                company_id = result.fetchone()["ID"] ## Please review this line for appropriate accessing of result attr
                 name_changed = 0
-                if stored_company_name != company_name:
+                if stored_company_name != new_company_name:
                     name_changed = 1
                 date = datetime.now()
-                db_conn.execute(text(f"INSERT INTO `Changelogs` VALUES('{company_id}','{date}','{new_symbol}','{old_symbol}','{symbol_changed}','{company_name}','{stored_company_name}','{name_changed}')"))
+                db_conn.execute(text(f"INSERT INTO `Changelogs` VALUES('{company_id}','{date}','{new_symbol}','{old_symbol}','{symbol_changed}','{new_company_name}','{stored_company_name}','{name_changed}')"))
     except Exception as e:
         print("Encountered SQL or system exception:")
         print(e)
         
 
-if __name__ == ")__main__":
+if __name__ == "__main__":
     main()
