@@ -45,10 +45,12 @@ def main():
                 old_symbol = change["oldSymbol"]
                 new_symbol = change["newSymbol"]
                 symbol_changed = 0
+                ## If symbol changed, flag it as a change for the insertion later.
                 if old_symbol != new_symbol:
                     symbol_changed = 1
                 new_company_name = change["name"]
                 result = db_conn.execute(text(f"SELECT * FROM `Companies` WHERE Symbol='{old_symbol}'"))
+                ## If the company has changed their symbol, but doesn't exist in the database we will not track it.
                 if not result.first():
                     continue
                 ## q_result = result.mappings() for dict with column-based keys?
