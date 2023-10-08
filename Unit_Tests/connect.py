@@ -46,7 +46,7 @@ def load_json(path):
 connection function, creates engine and returns connection object
 """
 @contextmanager
-def connect(credentials, db):
+def connect():
     try:
         print(f"Connecting to database...")
         sql_port = 3306
