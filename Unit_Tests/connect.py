@@ -66,9 +66,9 @@ def main():
     try:
         # maybe this will still close it
         with connect() as conn:
-            #for record in data:
-            #    conn.execute(text(f"insert into `Bonds` values ({record['Date']}, {record['BondDuration']}, {record['Rate']})"))
-            #conn.commit()
+
+            conn.execute(text(f"insert into `Bonds` values (SYSDATE, 1.0, 2.0)"))
+            conn.commit()
             print(f"Selecting values from database...")
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
