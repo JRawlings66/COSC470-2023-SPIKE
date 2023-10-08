@@ -69,7 +69,7 @@ def main():
             #for record in data:
             #    conn.execute(text(f"insert into `Bonds` values ({record['Date']}, {record['BondDuration']}, {record['Rate']})"))
             #conn.commit()
-            print(f"Selecting values from {db}...")
+            print(f"Selecting values from database...")
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
                 print(row.Rate)
