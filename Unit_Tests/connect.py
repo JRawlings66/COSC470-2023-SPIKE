@@ -38,8 +38,9 @@ def main():
     try:
         # create with context manager
         with connect() as conn:
-            # execute plain sql insert statement
+            # execute plain sql insert statement - transaction begins
             conn.execute(text("insert into `Bonds` values (DATE(), 1.0, 2.0)"))
+            # end transaction
             conn.commit()
             # execute select statement, fetch cursorresult object
             result = conn.execute(text("select * from `Bonds`"))
