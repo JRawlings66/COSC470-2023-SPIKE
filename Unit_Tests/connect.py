@@ -44,7 +44,7 @@ def load_json(path):
 """
 connection function, creates engine and returns connection object
 """
-def connect():
+def connect(credentials, db):
     try:
         print(f"Connecting to database...")
         sql_port = 3306
@@ -62,6 +62,7 @@ def connect():
 
 def main():
     try:
+        # maybe this will still close it
         with connect() as conn:
             #for record in data:
             #    conn.execute(text(f"insert into `Bonds` values ({record['Date']}, {record['BondDuration']}, {record['Rate']})"))
