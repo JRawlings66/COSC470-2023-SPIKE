@@ -1,7 +1,3 @@
-import traceback
-import csv
-import sys
-import json
 from contextlib import contextmanager
 import credentials as cred
 
@@ -21,7 +17,7 @@ def connect():
     try:
         print(f"Connecting to database...")
         sql_port = 3306
-        # database uri
+        # database uri - connector://user:pass@hostname:sql_port(3306 by default)/database
         uri = f"mysql+pymysql://{cred.db['user']}:{cred.db['pass']}@{cred.db['host']}:{sql_port}/{cred.db['database']}"
         # create engine
         # echo=True for sql feedback on every op
@@ -48,7 +44,6 @@ def main():
                 print(row.Rate)
     except Exception as e:
         print(e)
-        traceback.format_exc()
         print("SQL connection error")
 
 # protected entrypoint
