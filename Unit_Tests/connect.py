@@ -60,7 +60,7 @@ def connect():
 
         yield connection
     finally:
-        engine.close()
+        connection.close()
 
 def main():
     try:
