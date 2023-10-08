@@ -26,24 +26,9 @@ from sqlalchemy.exc import (
 )
 
 """
-csv code
-
-with open('bonds.csv', mode='w') as output:
-    csv_writer = csv.writer(output, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-    for row in result:
-        csv_writer.writerow([row.Date, row.BondDuration, row.Rate])
-    output.flush()
-"""
-
-def load_json(path):
-    print("Loading JSON...")
-    with open(path) as file:
-        data = json.load(file)
-    
-    return data
-
-"""
 connection function, creates engine and returns connection object
+decorator allows use of the context manager to close the connection automatically
+TODO; function or class?
 """
 @contextmanager
 def connect():
@@ -64,12 +49,12 @@ def connect():
 
 def main():
     try:
-        # maybe this will still close it
+        # create with context manager
         with connect() as conn:
-
-            conn.execute(text(f"insert into `Bonds` values (SYSDATE(), 1.0, 2.0)"))
+            # execute plain sql statement
+            conn.execute(text("insert into `Bonds` values (DATE(), 1.0, 2.0)"))
             conn.commit()
-            print(f"Selecting values from database...")
+            # execute select statement
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
                 print(row.Rate)
