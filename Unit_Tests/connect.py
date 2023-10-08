@@ -5,6 +5,7 @@ import traceback
 import csv
 import sys
 import json
+from contextlib import contextmanager
 import credentials as cred
 
 from sqlalchemy import column
@@ -44,6 +45,7 @@ def load_json(path):
 """
 connection function, creates engine and returns connection object
 """
+@contextmanager
 def connect(credentials, db):
     try:
         print(f"Connecting to database...")
@@ -56,9 +58,9 @@ def connect(credentials, db):
         # connect, must be closed
         connection = engine.connect()
 
-        return connection
-    except Exception as e:
-        traceback.format_exc()
+        yield connection
+    finally:
+        engine.close()
 
 def main():
     try:
