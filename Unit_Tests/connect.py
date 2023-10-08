@@ -40,7 +40,7 @@ def connect():
         # create engine
         # echo=True for sql feedback on every op
         engine = create_engine(uri)
-        # connect, must be closed
+        # connect, no need to close manually
         connection = engine.connect()
         # generator - like a return with iteration, allows function to continue from a previous state after a return
         yield connection
