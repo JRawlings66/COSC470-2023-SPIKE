@@ -73,7 +73,8 @@ def main():
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
                 print(row.Rate)
-    except Exception:
+    except Exception as e:
+        print(e)
         traceback.format_exc()
         print("SQL connection error")
 
