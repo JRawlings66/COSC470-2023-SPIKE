@@ -59,6 +59,7 @@ def main():
                     name_changed = 1
                 date = datetime.now()
                 db_conn.execute(text(f"INSERT INTO `Changelogs` VALUES('{company_id}','{date}','{new_symbol}','{old_symbol}','{symbol_changed}','{new_company_name}','{stored_company_name}','{name_changed}')"))
+                db_conn.commit()
     except Exception as e:
         print("Encountered SQL or system exception:")
         print(e)
