@@ -28,7 +28,7 @@ from sqlalchemy.exc import (
 """
 connection function, creates engine and returns connection object
 decorator allows use of the context manager to close the connection automatically
-TODO; function or class?
+could also be a class, but we'll leave it as a function unless there needs to be enough data attached to it to justify it
 """
 @contextmanager
 def connect():
@@ -42,19 +42,20 @@ def connect():
         engine = create_engine(uri)
         # connect, must be closed
         connection = engine.connect()
-
+        # generator - like a return with iteration, allows function to continue from a previous state after a return
         yield connection
     finally:
+        # block executed when closed by context manager, as the with statement is really just a try/finally block
         connection.close()
 
 def main():
     try:
         # create with context manager
         with connect() as conn:
-            # execute plain sql statement
+            # execute plain sql insert statement
             conn.execute(text("insert into `Bonds` values (DATE(), 1.0, 2.0)"))
             conn.commit()
-            # execute select statement
+            # execute select statement, fetch cursorresult object
             result = conn.execute(text("select * from `Bonds`"))
             for row in result:
                 print(row.Rate)
