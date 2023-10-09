@@ -45,6 +45,10 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
             try:
                 symbol = historical_entry["symbol"]
 
+                # Remove the label field
+                for day in range(len(historical_entry)):
+                    del (historical_entry['historical'][day]['label'])
+
                 # Find the corresponding real-time data entry based on the symbol
                 real_time_entry = None
                 for entry in raw_realtime_json:
@@ -65,7 +69,8 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
             except KeyError:
                 print("Empty entry for historical data, skipping...")
                 continue
-    except TypeError:
+    except TypeError as error:
+        print(error)
         pass
     # Iterate through the real-time data
     try:
@@ -73,12 +78,21 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
             try:
                 symbol = real_time_entry["symbol"]
 
+                # Remove the symbol field
+                # for day in range(len(real_time_entry)):
+                #     del (real_time_entry['historical'][day]['label'])'
+
                 # Check if there is already a combined entry for this symbol
                 existing_entry = None
                 for entry in combined_data:
                     if entry["symbol"] == symbol:
                         existing_entry = entry
                         break
+
+                # Remove the symbol field
+                for day in range(len(real_time_entry)):
+                    del (real_time_entry['symbol'])
+                    del (real_time_entry['name'])
 
                 if not existing_entry:
                     # If there's no existing entry, create a new one with real-time data
@@ -92,7 +106,8 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
             except KeyError:
                 print("Empty entry for real time data, skipping...")
                 continue
-    except TypeError:
+    except TypeError as error:
+        print(error)
         pass
 
     return combined_data
