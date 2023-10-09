@@ -52,13 +52,13 @@ def write_files(stock_json, index_json, commodity_json):
                 raise
 
     with open("Output/Raw_Stocks_Output.json", "w") as outfile:
-        json.dump(stock_json, outfile, indent=4)
+        json.dump(stock_json, outfile, indent=2)
 
     with open("Output/Raw_Index_Output.json", "w") as outfile:
-        json.dump(index_json, outfile, indent=4)
+        json.dump(index_json, outfile, indent=2)
 
     with open("Output/Raw_Commodity_Output.json", "w") as outfile:
-        json.dump(commodity_json, outfile, indent=4)
+        json.dump(commodity_json, outfile, indent=2)
 
 
 # code to only be executed if ran as script

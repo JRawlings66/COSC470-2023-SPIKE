@@ -46,7 +46,7 @@ def write_files(company_json):
                 raise
 
     with open("Output/Raw_Company_Info_Output.json", "w") as outfile:
-        json.dump(company_json, outfile, indent=4)
+        json.dump(company_json, outfile, indent=2)
 
 
 # Code to only be executed if ran as script
