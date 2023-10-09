@@ -1,3 +1,5 @@
+# rename to credentials.py for use in scripts
+
 shell = {
     "user": "ssh username",
     "pass": "ssh password",
