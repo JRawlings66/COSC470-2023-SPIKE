@@ -13,7 +13,7 @@ decorator allows use of the context manager to close the connection automaticall
 could also be a class, but we'll leave it as a function unless there needs to be enough data attached to it to justify it
 """
 @contextmanager
-def connect():
+def connect(echo=False):
     try:
         print(f"Connecting to database...")
         sql_port = 3306
@@ -21,7 +21,7 @@ def connect():
         uri = f"mysql+pymysql://{cred.db['user']}:{cred.db['pass']}@{cred.db['host']}:{sql_port}/{cred.db['database']}"
         # create engine
         # echo=True for sql feedback on every op
-        engine = create_engine(uri)
+        engine = create_engine(uri, echo)
         # connect, no need to close manually
         connection = engine.connect()
         # generator - like a return with iteration, allows function to continue from a previous state after a return
