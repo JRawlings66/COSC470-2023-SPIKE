@@ -61,7 +61,7 @@ def write_file(output):
                 raise
 
     with open("Output/Raw_Bonds_Output.json", "w") as outfile:
-        json.dump(output, outfile, indent=4)
+        json.dump(output, outfile, indent=2)
 
 
 # code to only be executed if ran as script
