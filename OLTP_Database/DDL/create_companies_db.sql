@@ -46,6 +46,7 @@ CREATE TABLE `Company_Statements` (
   `ShortOfFloat` DECIMAL(4,2),
   `TraillingAnnualDividendYield` DECIMAL(7,5),
   `EnterpriseValue` DECIMAL(13,2),
+  `NetIncome` DECIMAL(13,2),
   `Revenue` DECIMAL(13,2),
   `ReturnOnAssets` DECIMAL(5,2),
   `ReturnOnEquity` DECIMAL(5,2),
