@@ -18,7 +18,7 @@ def load(path):
 
 def main():
     # load json
-    data = load('big_test.json')
+    data = load('../Data_Collection/Output/Unified_Commodities_Output.json')
 
     try:
         # create with context manager
@@ -47,7 +47,7 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')")
+                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                 # end this symbol's transaction
                 conn.commit()
                 
