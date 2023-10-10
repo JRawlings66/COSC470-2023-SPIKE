@@ -14,14 +14,14 @@ from sqlalchemy import table
 from sqlalchemy import text
 
 @contextmanager
-def connect(use_echo=False):
+def connect():
     try:
         sql_port = 3306
         # database uri - connector://user:pass@hostname:sql_port(3306 by default)/database
         uri = f"mysql+pymysql://{cred.db['user']}:{cred.db['pass']}@{cred.db['host']}:{sql_port}/{cred.db['database']}"
         # create engine
         # echo=True for sql feedback on every op
-        engine = create_engine(uri, use_echo)
+        engine = create_engine(uri)
         # connect, no need to close manually
         connection = engine.connect()
         # generator - like a return with iteration, allows function to continue from a previous state after a return
