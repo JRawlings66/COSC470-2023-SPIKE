@@ -32,7 +32,7 @@ def main():
                 name = symbols['name']
                 print(f"symbol: {symbol}\n name: {name}")
                 # execute plain sql insert statement - transaction begins
-                conn.execute(text(f"insert into `Commodity_List` values (NULL, `{name}`, `{symbol}`)"))
+                conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, `{name}`, `{symbol}`)"))
             # end transaction
             conn.commit()
             # execute select statement, fetch cursorresult object
