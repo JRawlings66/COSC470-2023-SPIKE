@@ -26,7 +26,7 @@ def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit):
     # Iterate through each stocks and make a API call
     # TODO make it query with 5 items at a time ("APPL, TSLA, %5EGSPC")
     for query_itr in range(len(query_list)):
-        query = query_list[query_itr]
+        query = query_list[query_itr]["symbol"]
         # Replace the URL parameters with our current API configs
         query = parsed_api_url.replace("{QUERY_PARAMS}", query).replace("{API_KEY}", parsed_api_key)
         response = requests.get(query)

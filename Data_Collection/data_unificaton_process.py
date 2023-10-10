@@ -47,7 +47,10 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
 
                 # Remove the label field
                 for day in range(len(historical_entry)):
-                    del (historical_entry['historical'][day]['label'])
+                    try:
+                        del (historical_entry['historical'][day]['label'])
+                    except IndexError:
+                        pass  # Sometimes on holidays, commodities will have an uneven amount of entries vs a stock
 
                 # Find the corresponding real-time data entry based on the symbol
                 real_time_entry = None
@@ -59,7 +62,7 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
                 # dictionary for historical data
                 historical_combined = {
                     "symbol": symbol,
-                    "name": real_time_entry["name"] if real_time_entry else "",  # None types prevention
+                    "name": real_time_entry["name"] if real_time_entry else get_company_name_from_config(symbol),  # None types prevention
                     "realtime_data": real_time_entry if real_time_entry else {},  # Empty entry prevention
                     "historical_data": historical_entry["historical"],
                 }
@@ -77,10 +80,6 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
         for real_time_entry in raw_realtime_json:
             try:
                 symbol = real_time_entry["symbol"]
-
-                # Remove the symbol field
-                # for day in range(len(real_time_entry)):
-                #     del (real_time_entry['historical'][day]['label'])'
 
                 # Check if there is already a combined entry for this symbol
                 existing_entry = None
@@ -111,6 +110,31 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
         pass
 
     return combined_data
+
+
+def get_company_name_from_config(symbol):
+    config_path = "Config/Historical_Stock_IndexComp_Comm_List.json"
+    try:
+        config_file = open(config_path, "r")
+        config = json.load(config_file)
+        for api in range(len(config)):
+            for stock in range(len(config[api]["stocks"])):
+                if config[api]["stocks"][stock]["symbol"] == symbol:
+                    print(config[api]["stocks"][stock]["name"])
+                    return config[api]["stocks"][stock]["name"]
+
+            for index in range(len(config[api]["index_composites"])):
+                if config[api]["index_composites"][index]["symbol"] == symbol:
+                    print(config[api]["index_composites"][index]["name"])
+                    return config[api]["index_composites"][index]["name"]
+
+            for commodity in range(len(config[api]["commodities"])):
+                if config[api]["commodities"][commodity]["symbol"] == symbol:
+                    print(config[api]["commodities"][commodity]["name"])
+                    return config[api]["commodities"][commodity]["name"]
+
+    except IOError:
+        print(f"IOError while accessing historical stock/index/commodity query config at path: {config_path}")
 
 
 if __name__ == "__main__":

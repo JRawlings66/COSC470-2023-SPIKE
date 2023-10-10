@@ -35,13 +35,15 @@ def make_queries(parsed_api_url, parsed_api_key, query_list, api_rate_limit, obs
     # Iterate through each stocks and make a API call
     # TODO make it query with 5 items at a time ("APPL, TSLA, %5EGSPC")
     for query_itr in range(len(query_list)):
-        query = query_list[query_itr]
+        query = query_list[query_itr]["symbol"]
         # Replace the URL parameters with our current API configs
         query = parsed_api_url.replace("{QUERY_PARAMS}", query).replace("{API_KEY}", parsed_api_key).replace(
             "{FROM_DATE}", date_prior_formatted).replace("{TODAY_DATE}", today_formatted)
         response = requests.get(query)
         # convert the response to json and append to list
         data = response.json()
+        json.dumps(data)
+        data['name'] = query_list[query_itr]["name"]
         output.append(data)
         # print(output)
         # Rate limit the query speed based on the rate limit

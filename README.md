@@ -21,4 +21,5 @@ pip
 ```pip
 pip install bs4
 pip install mysql-connector-python
+pip install requests
 ```

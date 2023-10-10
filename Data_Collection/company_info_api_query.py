@@ -59,7 +59,7 @@ if __name__ == "__main__":
         api_url = JSON_config[api]['url']
         api_key = JSON_config[api]['api_key']
         api_rate_limit = JSON_config[api]['rate_limit_per_min']
-        company_list = JSON_config[api]['stocks']
+        company_list = JSON_config[api]['companies']
 
         company_output = make_queries(api_url, api_key, company_list, api_rate_limit)
 
