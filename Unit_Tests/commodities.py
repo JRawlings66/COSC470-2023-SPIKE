@@ -33,14 +33,14 @@ def main():
                 print(f"symbol: {symbol}\n name: {name}")
                 # establish if it exists already
                 result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'"))
-                CommodityID = result.one_or_none()['ID']
+                CommodityID = result.one_or_none()[0]
                 if CommodityID is None:
                     # execute plain sql insert statement - transaction begins
                     conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
-                    CommodityID = result.one()['ID']
+                    CommodityID = result.one()[0]
                 #unknown if we want realtime data included
                 #commodityOpen = symbols.realtime_data['open']
                 #commodity...
