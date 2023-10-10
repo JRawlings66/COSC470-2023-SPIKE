@@ -3,7 +3,7 @@
         "url": "https://financialmodelingprep.com/api/v3/profile/{QUERY_PARAMS}?apikey={API_KEY}",
         "rate_limit_per_min": 300,
         "api_key": "KEY",
-        "stocks": [
+        "companies": [
             "AAPL",
             "NDAQ",
             "META",

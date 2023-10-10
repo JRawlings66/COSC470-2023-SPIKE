@@ -2,43 +2,37 @@
   {
     "url": "https://financialmodelingprep.com/api/v3/historical-price-full/{QUERY_PARAMS}?from={FROM_DATE}&to={TODAY_DATE}&apikey={API_KEY}",
     "api_key": "KEY",
-    "observable_days": 200,
+    "observable_days": 2,
     "rate_limit_per_min": 300,
     "index_composites": [
-      "^GSPC",
-      "^IXIC",
-      "^DJI",
-      "^RUA",
-      "^FTSE"
+      { "symbol": "^GSPC", "name": "S&P 500"},
+      { "symbol": "^IXIC", "name": "NASDAQ Composite"},
+      { "symbol": "^DJI", "name": "Dow Jones Industrial Average"},
+      { "symbol": "^RUA", "name": "Russell 3000"},
+      { "symbol": "^FTSE", "name": "FTSE 100"}
     ],
     "stocks": [
-      "AAPL",
-      "NDAQ",
-      "META",
-      "GOOG",
-      "MSFT",
-      "NVDA",
-      "ZNGA",
-      "WBA",
-      "TSLA",
-      "NKE",
-      "AMZN",
-      "WMT",
-      "XOM",
-      "JPM",
-      "COST",
-      "PEP",
-      "ADBE",
-      "JNJ",
-      "V",
-      "CVX"
+      { "symbol": "AAPL", "name": "Apple Inc."},
+      { "symbol": "NDAQ", "name": "Nasdaq, Inc."},
+      { "symbol": "META", "name": "Meta Platforms, Inc."},
+      { "symbol": "GOOG", "name": "Alphabet Inc."},
+      { "symbol": "MSFT", "name": "Microsoft Corporation"},
+      { "symbol": "NVDA", "name": "NVIDIA Corporation"},
+      { "symbol": "WBA", "name": "Walgreens Boots Alliance, Inc."},
+      { "symbol": "TSLA", "name": "Tesla, Inc."},
+      { "symbol": "AMZN", "name": "Amazon.com, Inc."},
+      { "symbol": "WMT", "name": "Walmart Inc."},
+      { "symbol": "ADBE", "name": "Adobe Inc."},
+      { "symbol": "JNJ", "name": "Johnson & Johnson"},
+      { "symbol": "V", "name": "Visa Inc."},
+      { "symbol": "CVX", "name": "Chevron Corporation"}
     ],
     "commodities": [
-      "HGUSD",
-      "CLUSD",
-      "GCUSD",
-      "SIUSD",
-      "NGUSD"
+      { "symbol": "HGUSD", "name": "Copper"},
+      { "symbol": "CLUSD", "name": "Crude Oil"},
+      { "symbol": "GCUSD", "name": "Gold Futures"},
+      { "symbol": "SIUSD", "name": "Silver Futures"},
+      { "symbol": "NGUSD", "name": "Natural Gas"}
     ]
   }
 ]
