@@ -33,7 +33,8 @@ def main():
                 print(f"symbol: {symbol}\n name: {name}")
                 # establish if it exists already
                 result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'"))
-                if CommodityID = result.one_or_none() is None:
+                CommodityID = result.one_or_none()
+                if CommodityID is None:
                     # execute plain sql insert statement - transaction begins
                     conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
