@@ -31,14 +31,37 @@ def main():
                 symbol = symbols['symbol']
                 name = symbols['name']
                 print(f"symbol: {symbol}\n name: {name}")
-                # execute plain sql insert statement - transaction begins
-                conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
-            # end transaction
-            conn.commit()
+                # establish if it exists already
+                result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}"))
+                if result.one_or_none() is None
+                    # execute plain sql insert statement - transaction begins
+                    conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
+                    conn.commit()
+                    # get the generated ID
+                    result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}")) 
+                    CommodityID = result.one['ID']
+                else
+                    CommodityID = result.one['ID']
+                #unknown if we want realtime data included
+                #commodityOpen = symbols.realtime_data['open']
+                #commodity...
+                #conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', CURDATE, '{symbols[}')"))
+                for entry in symbols.historical_data
+                    date = entry['date']
+                    commodityOpen = entry['open']
+                    high = entry['high']
+                    low = entry['low']
+                    close = entry['close']
+                    volume = entry['volume']
+                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', {date}, '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}', )"))
+                # end transaction
+                conn.commit()
+                
+            
             # execute select statement, fetch cursorresult object
-            result = conn.execute(text("select * from `Commodity_List`"))
-            for row in result:
-                print(row)
+            #result = conn.execute(text("select * from `Commodity_List`"))
+            #for row in result:
+            #    print(row)
     except Exception as e:
         print(e)
         print(traceback.format_exc())
