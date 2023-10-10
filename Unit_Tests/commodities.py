@@ -45,7 +45,7 @@ def main():
                 #commodityOpen = symbols.realtime_data['open']
                 #commodity...
                 #conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', CURDATE, '{symbols[}')"))
-                for entry in symbols.historical_data:
+                for entry in symbols['historical_data']:
                     date = entry['date']
                     commodityOpen = entry['open']
                     high = entry['high']
