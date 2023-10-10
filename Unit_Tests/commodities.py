@@ -41,7 +41,7 @@ def main():
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
                     CommodityID = result.one()['ID']
                 else:
-                    print(result.one())
+                    print(result)
                     CommodityID = result.one()['ID']
                 #unknown if we want realtime data included
                 #commodityOpen = symbols.realtime_data['open']
