@@ -5,8 +5,9 @@
       <excludeFolder url="file://$MODULE_DIR$/Data_Collection/Output" />
       <excludeFolder url="file://$MODULE_DIR$/auxil" />
       <excludeFolder url="file://$MODULE_DIR$/out" />
+      <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (COSC470-2023-SPIKE)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>
