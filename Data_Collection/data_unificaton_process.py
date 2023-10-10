@@ -122,6 +122,7 @@ def get_company_name_from_config(symbol):
     """
 
     config_path = "Config/Historical_Stock_IndexComp_Comm_List.json"
+
     try:
         config_file = open(config_path, "r")
         config = json.load(config_file)
