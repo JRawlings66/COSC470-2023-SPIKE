@@ -1,5 +1,4 @@
 import json
-import time
 import os
 import errno
 import sys
@@ -103,7 +102,7 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
                     }
                     combined_data.append(combined_entry)
             except KeyError:
-                print("Empty entry for real time data, skipping...")
+                # print("Empty entry for real time data, skipping...")
                 continue
     except TypeError as error:
         print(error)
@@ -113,6 +112,15 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
 
 
 def get_company_name_from_config(symbol):
+    """
+    Searches the historical config file for the company name that matches
+    the symbol. Used when no real time data is provided, and thus a name must be found.
+    TODO: Fix the fact this is horribly optimized.
+    :type symbol: str
+    :param symbol: Company symbol
+    :return: Company name (str)
+    """
+
     config_path = "Config/Historical_Stock_IndexComp_Comm_List.json"
     try:
         config_file = open(config_path, "r")
@@ -120,17 +128,17 @@ def get_company_name_from_config(symbol):
         for api in range(len(config)):
             for stock in range(len(config[api]["stocks"])):
                 if config[api]["stocks"][stock]["symbol"] == symbol:
-                    print(config[api]["stocks"][stock]["name"])
+                    # print(config[api]["stocks"][stock]["name"])
                     return config[api]["stocks"][stock]["name"]
 
             for index in range(len(config[api]["index_composites"])):
                 if config[api]["index_composites"][index]["symbol"] == symbol:
-                    print(config[api]["index_composites"][index]["name"])
+                    # print(config[api]["index_composites"][index]["name"])
                     return config[api]["index_composites"][index]["name"]
 
             for commodity in range(len(config[api]["commodities"])):
                 if config[api]["commodities"][commodity]["symbol"] == symbol:
-                    print(config[api]["commodities"][commodity]["name"])
+                    # print(config[api]["commodities"][commodity]["name"])
                     return config[api]["commodities"][commodity]["name"]
 
     except IOError:
