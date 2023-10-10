@@ -120,7 +120,7 @@ if __name__ == "__main__":
     realtime_index_json = load_files("Output/Raw_Index_Output.json")
 
     historical_stocks_json = load_files("Output/Raw_Historical_Stocks_Output.json")
-    historical_commodity_json = load_files("Output/Raw_Historical_Index_Output.json")
+    historical_commodity_json = load_files("Output/Raw_Historical_Commodity_Output.json")
     historical_index_json = load_files("Output/Raw_Historical_Index_Output.json")
 
     # Call to unify files.
