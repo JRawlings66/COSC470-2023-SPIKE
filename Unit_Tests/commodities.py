@@ -32,13 +32,13 @@ def main():
                 name = symbols['name']
                 print(f"symbol: {symbol}\n name: {name}")
                 # establish if it exists already
-                result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}"))
+                result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'"))
                 if result.one_or_none() is None:
                     # execute plain sql insert statement - transaction begins
                     conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
                     # get the generated ID
-                    result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}")) 
+                    result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
                     CommodityID = result.one['ID']
                 else:
                     CommodityID = result.one['ID']
@@ -53,7 +53,7 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', {date}, '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}', )"))
+                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', {date}, '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                 # end transaction
                 conn.commit()
                 
