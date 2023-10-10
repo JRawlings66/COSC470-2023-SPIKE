@@ -1,5 +1,6 @@
 import connect
 import json
+import traceback
 
 from sqlalchemy import column
 from sqlalchemy import create_engine
@@ -40,6 +41,7 @@ def main():
                 print(row)
     except Exception as e:
         print(e)
+        print(traceback.format_exc())
         print("SQL connection error")
 
 if __name__ == "__main__":
