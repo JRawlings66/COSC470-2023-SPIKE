@@ -17,7 +17,7 @@ def load(path):
 
 def main():
     # load json
-    data = load('test.json')
+    data = load('big_test.json')
 
     for row in data:
         print(row['symbol'])
@@ -27,10 +27,11 @@ def main():
         # create with context manager
         with connect.connect() as conn:
             for symbols in data:
-                symbol = data['symbol']
-                name = data['name']
-            # execute plain sql insert statement - transaction begins
-            conn.execute(text(f"insert into `Commodity_List` values (NULL, {name}, {symbol})"))
+                symbol = symbols['symbol']
+                name = symbols['name']
+                print(f"symbol: {symbol}\n name: {name}")
+                # execute plain sql insert statement - transaction begins
+                conn.execute(text(f"insert into `Commodity_List` values (NULL, {name}, {symbol})"))
             # end transaction
             conn.commit()
             # execute select statement, fetch cursorresult object
