@@ -39,10 +39,10 @@ def main():
                     conn.commit()
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
-                    CommodityID = result.one['ID']
+                    CommodityID = result.one()['ID']
                 else:
-                    print(result.one)
-                    CommodityID = result.one['ID']
+                    print(result.one())
+                    CommodityID = result.one()['ID']
                 #unknown if we want realtime data included
                 #commodityOpen = symbols.realtime_data['open']
                 #commodity...
