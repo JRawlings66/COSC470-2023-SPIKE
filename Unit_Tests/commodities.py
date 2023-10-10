@@ -20,17 +20,12 @@ def main():
     # load json
     data = load('big_test.json')
 
-    for row in data:
-        print(row['symbol'])
-        print(row['realtime_data']['price'])
-
     try:
         # create with context manager
         with connect.connect() as conn:
             for symbols in data:
                 symbol = symbols['symbol']
                 name = symbols['name']
-                print(f"symbol: {symbol}\n name: {name}")
                 # establish if it exists already
                 result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'"))
                 CommodityID = result.one_or_none()[0]
@@ -52,16 +47,11 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
-                    conn.commit()
-                # end transaction
+                    conn.execute(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')")
+                # end this symbol's transaction
                 conn.commit()
                 
             
-            # execute select statement, fetch cursorresult object
-            #result = conn.execute(text("select * from `Commodity_List`"))
-            #for row in result:
-            #    print(row)
     except Exception as e:
         print(e)
         print(traceback.format_exc())
