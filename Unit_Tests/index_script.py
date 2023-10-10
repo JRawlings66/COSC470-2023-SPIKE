@@ -48,11 +48,10 @@ def main():
                     conn.commit()
                     # after commit, we can then pull the auto inserted id
                     indexID = conn.execute(text("select ID from `Indices` where Symbol = '" + symbol + "'"))
-                else:
-                    for j in i['historical_data']:
-                        # insert the rest of the data into index_values table
-                        conn.execute(text("insert into `Index_Values` values (DATE(), '" + indexID + "'," + j['open'] + "," + j['high'] + "," + j['low'] + "," + j['close'] + "," + j['volume'] + ")"))
-                        conn.commit()
+                for j in i['historical_data']:
+                    # insert the rest of the data into index_values table
+                    conn.execute(text("insert into `Index_Values` values (DATE(), '" + indexID + "'," + j['open'] + "," + j['high'] + "," + j['low'] + "," + j['close'] + "," + j['volume'] + ")"))
+                    conn.commit()
     except Exception as e:
         print(e)
         print("SQL connection error")
