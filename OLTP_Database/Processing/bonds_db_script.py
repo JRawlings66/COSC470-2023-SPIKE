@@ -27,7 +27,6 @@ def main():
         with connect.connect() as conn:
             for entry in data:
                 date = entry['date']
-                print(entry)
                 for row in entry:
                     # skip the first row
                     if row == "date":
