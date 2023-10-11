@@ -27,7 +27,11 @@ def main():
         with connect.connect() as conn:
             for entry in data:
                 date = entry['date']
-                for row in entry[1:]:
+                for row in entry:
+                    # skip the first row
+                    if row[0] == "date":
+                        continue
+                    
                     bondDuration = row[0]
                     rate = row[1]
                     try:
