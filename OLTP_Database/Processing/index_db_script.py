@@ -1,5 +1,4 @@
 import datetime
-from sqlite3 import IntegrityError
 import connect
 import json
 import traceback
@@ -9,6 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy import select
 from sqlalchemy import table
 from sqlalchemy import text
+from sqlalchemy.exc import IntegrityError
 
 def load(path):
     with open(path) as file:
@@ -42,7 +42,12 @@ def main():
                 low = symbols['realtime_data']['low']
                 #close = symbols['realtime_data']['close']
                 volume = symbols['realtime_data']['volume']
-                conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', null, '{volume}')"))
+                try:
+                    conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', null, '{volume}')"))
+                    conn.commit()           
+                except IntegrityError as e:
+                    volume = volume # do nothing  
+
                 # process historical data
                 for entry in symbols['historical_data']:
                     date = entry['date']
@@ -51,8 +56,8 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                     try: 
+                        conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                         conn.commit()
                     except IntegrityError as e: # catch duplicate entries
                         continue
