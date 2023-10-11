@@ -1,6 +1,7 @@
 import connect
 import json
 import traceback
+import datetime
 
 from sqlalchemy import column
 from sqlalchemy import create_engine
@@ -8,6 +9,7 @@ from sqlalchemy import select
 from sqlalchemy import table
 from sqlalchemy import text
 from sqlalchemy import insert
+from sqlalchemy.exc import IntegrityError
 
 
 def load(path):
@@ -18,7 +20,7 @@ def load(path):
 
 def main():
     # load json
-    data = load('../Data_Collection/Output/Unified_Commodities_Output.json')
+    data = load('../../Data_Collection/Output/Unified_Commodities_Output.json')
 
     try:
         # create with context manager
@@ -36,10 +38,19 @@ def main():
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
                     CommodityID = result.one()[0]
-                #unknown if we want realtime data included
-                #commodityOpen = symbols.realtime_data['open']
-                #commodity...
-                #conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', CURDATE, '{symbols[}')"))
+                    
+                date = datetime.datetime.fromtimestamp(symbols['realtime_data']['timestamp']) 
+                commodityOpen = symbols['realtime_data']['open']
+                high = symbols['realtime_data']['dayHigh']
+                low = symbols['realtime_data']['dayLow']
+                #close = symbols['realtime_data']['previousClose'] no close
+                volume = symbols['realtime_data']['volume']
+                try:
+                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', null, '{volume}')"))
+                    conn.commit()
+                except IntegrityError as e: # catch duplicate entry
+                    volume = volume # do nothing
+                
                 for entry in symbols['historical_data']:
                     date = entry['date']
                     commodityOpen = entry['open']
@@ -47,9 +58,11 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
-                # end this symbol's transaction
-                conn.commit()
+                    try:
+                        conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
+                        conn.commit()
+                    except IntegrityError as e: # catch duplicate entries
+                        continue
                 
             
     except Exception as e:
