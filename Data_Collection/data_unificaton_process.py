@@ -22,8 +22,8 @@ def load_files(file_path):
         raw_json_file = open(file_path)
         return json.load(raw_json_file)
     except (IOError, ValueError) as error:
-        sys.stderr.write(
-            f"IOError while accessing raw realtime stock data file at path: {file_path}.\nThis could because the file "
+        print(
+            f"IOError while accessing raw input data file at path: {file_path}.\n\tThis could because the file "
             f"is not found, or the JSON is not valid.")
 
 
@@ -61,7 +61,8 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
                 # dictionary for historical data
                 historical_combined = {
                     "symbol": symbol,
-                    "name": real_time_entry["name"] if real_time_entry else get_company_name_from_config(symbol),  # None types prevention
+                    "name": real_time_entry["name"] if real_time_entry else get_company_name_from_config(symbol),
+                    # None types prevention
                     "realtime_data": real_time_entry if real_time_entry else {},  # Empty entry prevention
                     "historical_data": historical_entry["historical"],
                 }
@@ -79,6 +80,7 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
         for real_time_entry in raw_realtime_json:
             try:
                 symbol = real_time_entry["symbol"]
+                name = real_time_entry["name"]
 
                 # Check if there is already a combined entry for this symbol
                 existing_entry = None
@@ -89,20 +91,23 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
 
                 # Remove the symbol field
                 for day in range(len(real_time_entry)):
-                    del (real_time_entry['symbol'])
-                    del (real_time_entry['name'])
+                    if symbol in real_time_entry.keys():
+                        del (real_time_entry['symbol'])
+                    if name in real_time_entry.keys():
+                        del (real_time_entry['name'])
 
                 if not existing_entry:
                     # If there's no existing entry, create a new one with real-time data
                     combined_entry = {
                         "symbol": symbol,
-                        "name": real_time_entry["name"],
+                        "name": name,
                         "realtime_data": real_time_entry,
                         "historical_data": {},
                     }
                     combined_data.append(combined_entry)
-            except KeyError:
-                # print("Empty entry for real time data, skipping...")
+            except KeyError as error:
+                raise error
+                print("Empty entry for real time data, skipping...")
                 continue
     except TypeError as error:
         print(error)
