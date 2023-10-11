@@ -3,17 +3,20 @@ import connect
 import json
 import traceback
 
-from sqlalchemy import column
-from sqlalchemy import create_engine
-from sqlalchemy import select
-from sqlalchemy import table
 from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
 def load(path):
-    with open(path) as file:
-        data = json.load(file)
-    return data
+    try:
+        with open(path, "r") as output_file:
+            output_data = json.load(output_file)
+        return output_data
+    except FileNotFoundError:
+        print(f"Output file '{path}' not found.")
+        exit(1)
+    except json.JSONDecodeError:
+        print(f"Error decoding JSON in '{path}'")
+        exit(1)
 
 def main():
     # load json
