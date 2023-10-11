@@ -49,7 +49,7 @@ def main():
                 volume = entry['realtime_data']['volume']
                 exchange = entry['realtime_data']['exchange']
                 try:
-                    conn.execute(text(f"insert into `Stock_Values`(`CompanyID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CompanyID}', '{date}', '{companyOpen}', '{high}', '{low}', null, '{volume}', '{exchange}')"))
+                    conn.execute(text(f"insert into `Stock_Values`(`CompanyID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`, `Exchange`) values ('{CompanyID}', '{date}', '{companyOpen}', '{high}', '{low}', null, '{volume}', '{exchange}')"))
                     conn.commit()
                 except IntegrityError as e: # catch duplicate entry
                     volume = volume # do nothing
@@ -62,7 +62,7 @@ def main():
                     close = h_entry['close']
                     volume = h_entry['volume']
                     try:
-                        conn.execute(text(f"insert into `Stock_Values`(`CompanyID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CompanyID}', '{date}', '{companyOpen}', '{high}', '{low}', '{close}', '{volume}', '{exchange}')"))
+                        conn.execute(text(f"insert into `Stock_Values`(`CompanyID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`, `Exchange`) values ('{CompanyID}', '{date}', '{companyOpen}', '{high}', '{low}', '{close}', '{volume}', '{exchange}')"))
                         conn.commit()
                     except IntegrityError as e: # catch duplicate entries
                         continue
