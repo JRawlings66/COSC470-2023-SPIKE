@@ -27,18 +27,19 @@ def main():
         with connect.connect() as conn:
             for entry in data:
                 date = entry['date']
+                print(entry)
                 for row in entry:
                     # skip the first row
                     if row[0] == "date":
                         continue
-                    
+                    print(row)
                     bondDuration = row[0]
                     rate = row[1]
-                    try:
-                        conn.execute(text(f"insert into `Bonds`(`Date`, `BondDuration`, `Rate`) values ('{date}', '{bondDuration}', '{rate}')"))
-                        conn.commit()
-                    except IntegrityError as e: # catch duplicate entries
-                        continue
+                    #try:
+                    #    conn.execute(text(f"insert into `Bonds`(`Date`, `BondDuration`, `Rate`) values ('{date}', '{bondDuration}', '{rate}')"))
+                    #    conn.commit()
+                    #except IntegrityError as e: # catch duplicate entries
+                    #    continue
                 
             
     except Exception as e:
