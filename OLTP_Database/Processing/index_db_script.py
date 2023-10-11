@@ -17,7 +17,7 @@ def load(path):
 
 def main():
     # load json
-    data = load('../Data_Collection/Output/Unified_Index_Output.json')
+    data = load('../../Data_Collection/Output/Unified_Index_Output.json')
 
     try:
         # create with context manager
