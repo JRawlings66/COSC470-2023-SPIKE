@@ -1,5 +1,4 @@
 import json
-import time
 import os
 import errno
 import sys
@@ -23,8 +22,8 @@ def load_files(file_path):
         raw_json_file = open(file_path)
         return json.load(raw_json_file)
     except (IOError, ValueError) as error:
-        sys.stderr.write(
-            f"IOError while accessing raw realtime stock data file at path: {file_path}.\nThis could because the file "
+        print(
+            f"IOError while accessing raw input data file at path: {file_path}.\n\tThis could because the file "
             f"is not found, or the JSON is not valid.")
 
 
@@ -62,7 +61,8 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
                 # dictionary for historical data
                 historical_combined = {
                     "symbol": symbol,
-                    "name": real_time_entry["name"] if real_time_entry else get_company_name_from_config(symbol),  # None types prevention
+                    "name": real_time_entry["name"] if real_time_entry else get_company_name_from_config(symbol),
+                    # None types prevention
                     "realtime_data": real_time_entry if real_time_entry else {},  # Empty entry prevention
                     "historical_data": historical_entry["historical"],
                 }
@@ -80,6 +80,7 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
         for real_time_entry in raw_realtime_json:
             try:
                 symbol = real_time_entry["symbol"]
+                name = real_time_entry["name"]
 
                 # Check if there is already a combined entry for this symbol
                 existing_entry = None
@@ -90,19 +91,22 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
 
                 # Remove the symbol field
                 for day in range(len(real_time_entry)):
-                    del (real_time_entry['symbol'])
-                    del (real_time_entry['name'])
+                    if symbol in real_time_entry.keys():
+                        del (real_time_entry['symbol'])
+                    if name in real_time_entry.keys():
+                        del (real_time_entry['name'])
 
                 if not existing_entry:
                     # If there's no existing entry, create a new one with real-time data
                     combined_entry = {
                         "symbol": symbol,
-                        "name": real_time_entry["name"],
+                        "name": name,
                         "realtime_data": real_time_entry,
                         "historical_data": {},
                     }
                     combined_data.append(combined_entry)
-            except KeyError:
+            except KeyError as error:
+                raise error
                 print("Empty entry for real time data, skipping...")
                 continue
     except TypeError as error:
@@ -113,24 +117,34 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
 
 
 def get_company_name_from_config(symbol):
+    """
+    Searches the historical config file for the company name that matches
+    the symbol. Used when no real time data is provided, and thus a name must be found.
+    TODO: Fix the fact this is horribly optimized.
+    :type symbol: str
+    :param symbol: Company symbol
+    :return: Company name (str)
+    """
+
     config_path = "Config/Historical_Stock_IndexComp_Comm_List.json"
+
     try:
         config_file = open(config_path, "r")
         config = json.load(config_file)
         for api in range(len(config)):
             for stock in range(len(config[api]["stocks"])):
                 if config[api]["stocks"][stock]["symbol"] == symbol:
-                    print(config[api]["stocks"][stock]["name"])
+                    # print(config[api]["stocks"][stock]["name"])
                     return config[api]["stocks"][stock]["name"]
 
             for index in range(len(config[api]["index_composites"])):
                 if config[api]["index_composites"][index]["symbol"] == symbol:
-                    print(config[api]["index_composites"][index]["name"])
+                    # print(config[api]["index_composites"][index]["name"])
                     return config[api]["index_composites"][index]["name"]
 
             for commodity in range(len(config[api]["commodities"])):
                 if config[api]["commodities"][commodity]["symbol"] == symbol:
-                    print(config[api]["commodities"][commodity]["name"])
+                    # print(config[api]["commodities"][commodity]["name"])
                     return config[api]["commodities"][commodity]["name"]
 
     except IOError:
