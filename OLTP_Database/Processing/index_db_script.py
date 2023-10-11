@@ -22,9 +22,9 @@ def main():
     try:
         # create with context manager
         with connect.connect() as conn:
-             for symbols in data:
-                symbol = symbols['symbol']
-                name = symbols['name']
+             for entry in data:
+                symbol = entry['symbol']
+                name = entry['name']
                 # check if index exists in indices table
                 result = conn.execute(text(f"select ID from `Indices` where Symbol = '{symbol}'"))
                 row = result.one_or_none()
@@ -38,12 +38,12 @@ def main():
                 else:
                     IndexID = row[0]
                 # process realtime data
-                date = datetime.datetime.fromtimestamp(symbols['realtime_data']["timestamp"])
-                indexOpen = symbols['realtime_data']['open']
-                high = symbols['realtime_data']['dayHigh']
-                low = symbols['realtime_data']['dayLow']
-                #close = symbols['realtime_data']['close']
-                volume = symbols['realtime_data']['volume']
+                date = datetime.datetime.fromtimestamp(entry['realtime_data']["timestamp"])
+                indexOpen = entry['realtime_data']['open']
+                high = entry['realtime_data']['dayHigh']
+                low = entry['realtime_data']['dayLow']
+                #close = entry['realtime_data']['close']
+                volume = entry['realtime_data']['volume']
                 try:
                     conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', null, '{volume}')"))
                     conn.commit()           
@@ -51,13 +51,13 @@ def main():
                     volume = volume # do nothing  
 
                 # process historical data
-                for entry in symbols['historical_data']:
-                    date = entry['date']
-                    indexOpen = entry['open']
-                    high = entry['high']
-                    low = entry['low']
-                    close = entry['close']
-                    volume = entry['volume']
+                for h_entry in entry['historical_data']:
+                    date = h_entry['date']
+                    indexOpen = h_entry['open']
+                    high = h_entry['high']
+                    low = h_entry['low']
+                    close = h_entry['close']
+                    volume = h_entry['volume']
                     try: 
                         conn.execute(text(f"insert into `Index_Values`(`IndexID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{IndexID}', '{date}', '{indexOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                         conn.commit()
@@ -69,6 +69,6 @@ def main():
         print(traceback.format_exc())
         print("SQL connection error")
 
-# protected entrypoint
+# protected h_entrypoint
 if __name__ == "__main__":
     main()
