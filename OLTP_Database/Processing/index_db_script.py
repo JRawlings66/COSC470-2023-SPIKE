@@ -27,14 +27,16 @@ def main():
                 name = symbols['name']
                 # check if index exists in indices table
                 result = conn.execute(text(f"select ID from `Indices` where Symbol = '{symbol}'"))
-                IndexID = result.one_or_none()[0]
-                if IndexID is None:
+                row = result.one_or_none()
+                if row is None:
                     # execute plain sql insert statement - transaction begins
                     conn.execute(text(f"insert into `Indices`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Indices` where Symbol = '{symbol}'")) 
                     IndexID = result.one()[0]
+                else
+                    IndexID = row[0]
                 # process realtime data
                 date = datetime.datetime.fromtimestamp(symbols['realtime_data']["timestamp"])
                 indexOpen = symbols['realtime_data']['open']

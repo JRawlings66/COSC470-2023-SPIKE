@@ -30,14 +30,16 @@ def main():
                 name = symbols['name']
                 # establish if it exists already
                 result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'"))
-                CommodityID = result.one_or_none()[0]
-                if CommodityID is None:
+                row = result.one_or_none()
+                if row is None:
                     # execute plain sql insert statement - transaction begins
                     conn.execute(text(f"insert into `Commodity_List`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
                     CommodityID = result.one()[0]
+                else
+                    CommodityID = row[0]
                     
                 date = datetime.datetime.fromtimestamp(symbols['realtime_data']['timestamp']) 
                 commodityOpen = symbols['realtime_data']['open']
