@@ -40,8 +40,8 @@ def main():
                 # process realtime data
                 date = datetime.datetime.fromtimestamp(symbols['realtime_data']["timestamp"])
                 indexOpen = symbols['realtime_data']['open']
-                high = symbols['realtime_data']['high']
-                low = symbols['realtime_data']['low']
+                high = symbols['realtime_data']['dayHigh']
+                low = symbols['realtime_data']['dayLow']
                 #close = symbols['realtime_data']['close']
                 volume = symbols['realtime_data']['volume']
                 try:
