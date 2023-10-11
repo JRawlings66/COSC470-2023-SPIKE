@@ -9,7 +9,7 @@ from sqlalchemy import select
 from sqlalchemy import table
 from sqlalchemy import text
 from sqlalchemy import insert
-from sqlalchemy import IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 
 def load(path):
