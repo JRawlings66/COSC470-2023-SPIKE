@@ -38,7 +38,7 @@ def main():
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Commodity_List` where Symbol = '{symbol}'")) 
                     CommodityID = result.one()[0]
-                else
+                else:
                     CommodityID = row[0]
                     
                 date = datetime.datetime.fromtimestamp(symbols['realtime_data']['timestamp']) 

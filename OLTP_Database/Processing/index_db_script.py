@@ -35,7 +35,7 @@ def main():
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Indices` where Symbol = '{symbol}'")) 
                     IndexID = result.one()[0]
-                else
+                else:
                     IndexID = row[0]
                 # process realtime data
                 date = datetime.datetime.fromtimestamp(symbols['realtime_data']["timestamp"])
