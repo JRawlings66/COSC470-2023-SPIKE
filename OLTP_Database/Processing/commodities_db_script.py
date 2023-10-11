@@ -48,7 +48,7 @@ def main():
                 try:
                     conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', null, '{volume}')"))
                 except IntegrityError as e: # catch duplicate entry
-                    #do nothing
+                    volume = volume # do nothing
                 for entry in symbols['historical_data']:
                     date = entry['date']
                     commodityOpen = entry['open']
