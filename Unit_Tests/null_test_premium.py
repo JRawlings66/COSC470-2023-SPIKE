@@ -23,12 +23,12 @@ from sqlalchemy.exc import (
 )
 
 sql_port = 3306
+creds = credentials.db
+uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
 
 class NullTest(unittest.TestCase):
     
     def test_bonds(self):
-        creds = credentials.databases['bonds']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -36,8 +36,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()
                 
     def test_index_values(self):
-        creds = credentials.databases['index']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -45,8 +43,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()
                 
     def test_indices(self):
-        creds = credentials.databases['index']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -54,8 +50,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()
                 
     def test_changelogs(self):
-        creds = credentials.databases['companies']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -63,8 +57,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()
                 
     def test_companies(self):
-        creds = credentials.databases['companies']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -72,8 +64,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()            
                 
     def test_stock_values(self):
-        creds = credentials.databases['companies']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -81,8 +71,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()                        
                 
     def test_company_statements(self):
-        creds = credentials.databases['companies']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -90,8 +78,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()             
                 
     def test_commodity_list(self):
-        creds = credentials.databases['commodities']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:
@@ -99,8 +85,6 @@ class NullTest(unittest.TestCase):
                 conn.commit()            
                 
     def test_commodity_values(self):
-        creds = credentials.databases['commodities']
-        uri = f"mysql+pymysql://{creds['user']}:{creds['pass']}@{creds['host']}:{sql_port}/{creds['database']}"
         engine = create_engine(uri)
         with self.assertRaises(IntegrityError):
             with engine.connect() as conn:

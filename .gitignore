@@ -9,4 +9,7 @@ Data_Collection/Output/
 /out/
 
 # Credentials from Unit Tests
-/Unit_Tests/credentials
+Unit_Tests/credentials*
+
+# Credentials from Processing
+OLTP_Database/Processing/credentials*
