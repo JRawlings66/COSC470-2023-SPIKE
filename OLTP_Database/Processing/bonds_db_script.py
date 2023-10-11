@@ -33,6 +33,7 @@ def main():
                     if row[0] == "date":
                         continue
                     print(row)
+                    print(entry[row])
                     bondDuration = row[0]
                     rate = row[1]
                     #try:
