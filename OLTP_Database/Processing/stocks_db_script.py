@@ -33,7 +33,7 @@ def main():
                 row = result.one_or_none()
                 if row is None:
                     # execute plain sql insert statement - transaction begins
-                    conn.execute(text(f"insert into `Companies`(`ID`, `Name`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
+                    conn.execute(text(f"insert into `Companies`(`ID`, `CompanyName`, `Symbol`) values (NULL, '{name}', '{symbol}')"))
                     conn.commit()
                     # get the generated ID
                     result = conn.execute(text(f"select ID from `Companies` where Symbol = '{symbol}'")) 
