@@ -47,8 +47,10 @@ def main():
                 volume = symbols['realtime_data']['volume']
                 try:
                     conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', null, '{volume}')"))
+                    conn.commit()
                 except IntegrityError as e: # catch duplicate entry
                     volume = volume # do nothing
+                
                 for entry in symbols['historical_data']:
                     date = entry['date']
                     commodityOpen = entry['open']
@@ -56,8 +58,8 @@ def main():
                     low = entry['low']
                     close = entry['close']
                     volume = entry['volume']
-                    conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                     try:
+                        conn.execute(text(f"insert into `Commodity_Values`(`CommodityID`, `Date`, `Open`, `High`, `Low`, `Close`, `Volume`) values ('{CommodityID}', '{date}', '{commodityOpen}', '{high}', '{low}', '{close}', '{volume}')"))
                         conn.commit()
                     except IntegrityError as e: # catch duplicate entries
                         continue
