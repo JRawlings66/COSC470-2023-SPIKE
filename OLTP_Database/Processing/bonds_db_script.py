@@ -30,17 +30,15 @@ def main():
                 print(entry)
                 for row in entry:
                     # skip the first row
-                    if row[0] == "date":
+                    if row == "date":
                         continue
-                    print(row)
-                    print(entry[row])
-                    bondDuration = row[0]
-                    rate = row[1]
-                    #try:
-                    #    conn.execute(text(f"insert into `Bonds`(`Date`, `BondDuration`, `Rate`) values ('{date}', '{bondDuration}', '{rate}')"))
-                    #    conn.commit()
-                    #except IntegrityError as e: # catch duplicate entries
-                    #    continue
+                    bondDuration = row
+                    rate = entry[row]
+                    try:
+                        conn.execute(text(f"insert into `Bonds`(`Date`, `BondDuration`, `Rate`) values ('{date}', '{bondDuration}', '{rate}')"))
+                        conn.commit()
+                    except IntegrityError as e: # catch duplicate entries
+                        continue
                 
             
     except Exception as e:
