@@ -106,7 +106,6 @@ def unify_realtime_historical(raw_realtime_json, raw_historical_json):
                     }
                     combined_data.append(combined_entry)
             except KeyError as error:
-                raise error
                 print("Empty entry for real time data, skipping...")
                 continue
     except TypeError as error:
